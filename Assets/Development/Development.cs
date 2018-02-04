@@ -37,11 +37,11 @@ namespace AnimeRx.Dev
         {
             var anime = new[]
             {
-                Anime.Play(-5f, 5f, Motion.Uniform(3.0f)),
-                Anime.Play(-5f, 5f, Motion.Uniform(3.0f)),
+                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
+                Anime.Play(-5f, 5f, Motion.Uniform(5.0f)),
             };
 
-            return Observable.Zip(anime).DoToLocalPosition(cube).AsUnitObservable();
+            return Observable.CombineLatest(anime).DoToLocalPosition(cube).AsUnitObservable();
         }
     }
 }
