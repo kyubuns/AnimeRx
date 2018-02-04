@@ -25,5 +25,25 @@ namespace AnimeRx
         {
             return self.Concat(Play(from, to, animator, scheduler));
         }
+
+        public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator)
+        {
+            return Play(from, from + relative, animator, new TimeScheduler());
+        }
+
+        public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator, IScheduler scheduler)
+        {
+            return Play(from, from + relative, animator, scheduler);
+        }
+
+        public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator)
+        {
+            return self.Concat(Play(from, from + relative, animator));
+        }
+
+        public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Concat(Play(from, from + relative, animator, scheduler));
+        }
     }
 }
