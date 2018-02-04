@@ -1,6 +1,8 @@
 # AnimeRx
 Unity + Rx Animation Library
 
+Inspired by [fumobox/TweenRx](github.com/fumobox/TweenRx)
+
 # コンセプト
 
 - 「aからbにn秒で移動する」ではなく  
