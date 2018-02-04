@@ -39,7 +39,6 @@ namespace AnimeRx.Dev
             };
 
             Observable.Zip(anime)
-                .Select(x => new Vector3(x[0], x[1], 0.0f))
                 .SubscribeToLocalPosition(cube);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ namespace AnimeRx
         }
 
         public static IDisposable SubscribeToPosition(this IObservable<Vector2> source, GameObject gameObject)
+        {
+            return source.SubscribeToPosition(gameObject.transform);
+        }
+
+        public static IDisposable SubscribeToPosition(this IObservable<IList<float>> source, GameObject gameObject)
         {
             return source.SubscribeToPosition(gameObject.transform);
         }
@@ -41,6 +47,11 @@ namespace AnimeRx
             return source.DoToPosition(gameObject.transform);
         }
 
+        public static IObservable<IList<float>> DoToPosition(this IObservable<IList<float>> source, GameObject gameObject)
+        {
+            return source.DoToPosition(gameObject.transform);
+        }
+
         public static IObservable<float> DoToPositionX(this IObservable<float> source, GameObject gameObject)
         {
             return source.DoToPositionX(gameObject.transform);
@@ -66,6 +77,11 @@ namespace AnimeRx
             return source.SubscribeToLocalPosition(gameObject.transform);
         }
 
+        public static IDisposable SubscribeToLocalPosition(this IObservable<IList<float>> source, GameObject gameObject)
+        {
+            return source.SubscribeToLocalPosition(gameObject.transform);
+        }
+
         public static IDisposable SubscribeToLocalPositionX(this IObservable<float> source, GameObject gameObject)
         {
             return source.SubscribeToLocalPositionX(gameObject.transform);
@@ -87,6 +103,11 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector2> DoToLocalPosition(this IObservable<Vector2> source, GameObject gameObject)
+        {
+            return source.DoToLocalPosition(gameObject.transform);
+        }
+
+        public static IObservable<IList<float>> DoToLocalPosition(this IObservable<IList<float>> source, GameObject gameObject)
         {
             return source.DoToLocalPosition(gameObject.transform);
         }
