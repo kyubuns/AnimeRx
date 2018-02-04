@@ -19,7 +19,7 @@ namespace AnimeRx
 
         private static IEnumerator AnimationCoroutine(IAnimator animator, float distance, IScheduler scheduler, IObserver<float> observer, CancellationToken token)
         {
-            scheduler.Start();
+            var start = scheduler.Now;
 
             while (true)
             {
@@ -29,7 +29,7 @@ namespace AnimeRx
                     yield break;
                 }
 
-                var now = scheduler.Now;
+                var now = scheduler.Now - start;
                 if (animator.CalcFinishTime(distance) < now)
                 {
                     break;
@@ -46,7 +46,7 @@ namespace AnimeRx
 
         private static IEnumerator DelayCoroutine(float duration, IScheduler scheduler, IObserver<Unit> observer, CancellationToken token)
         {
-            scheduler.Start();
+            var start = scheduler.Now;
 
             while (true)
             {
@@ -56,7 +56,7 @@ namespace AnimeRx
                     yield break;
                 }
 
-                var now = scheduler.Now;
+                var now = scheduler.Now - start;
                 if (duration < now)
                 {
                     break;
