@@ -1,8 +1,6 @@
 # AnimeRx
 Unity + Rx Animation Library
 
-Inspired by [fumobox/TweenRx](https://github.com/fumobox/TweenRx)
-
 # コンセプト
 
 - 「aからbにn秒で移動する」も出来るし  
@@ -30,20 +28,7 @@ var anime = new[]
 Observable.Concat(anime).SubscribeToPosition(cube);
 ```
 
-# ToDo
+# Special Thanks
 
-- 移動完了地点からさらに移動する
-
-```csharp
-Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f)))
-    .ContinuePlay(new Vector3(5f, 3f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f))
-    .SubscribeToPosition(cube);
-```
-
-- Delayをいい感じに繋げる
-
-```csharp
-Anime.Delay(TimeSpan.FromSeconds(2f))
-    .Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f)))
-    .SubscribeToPosition(cube);
-```
+- Inspired by [fumobox/TweenRx](https://github.com/fumobox/TweenRx)
+- [yKimisaki](https://github.com/yKimisaki)
