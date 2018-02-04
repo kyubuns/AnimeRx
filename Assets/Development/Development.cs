@@ -10,10 +10,24 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
-            Observable.Concat(
-                Sample1(),
-                Sample2()
-            ).Subscribe();
+            Sample3();
+        }
+
+        private void Sample3()
+        {
+            var vector = new[]
+            {
+                new Vector3(-5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, -3.0f, 0.0f),
+            };
+
+            Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+                .Delay(TimeSpan.FromSeconds(1.0f))
+                .Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+                .Delay(TimeSpan.FromSeconds(1.0f))
+                .Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+                .SubscribeToLocalPosition(cube);
         }
 
         private IObservable<Unit> Sample1()

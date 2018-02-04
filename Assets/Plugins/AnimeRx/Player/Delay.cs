@@ -25,6 +25,16 @@ namespace AnimeRx
             return DelayInternal(duration, scheduler).Select(_ => default(T));
         }
 
+        public static IObservable<T> Delay<T>(this IObservable<T> self, TimeSpan duration)
+        {
+            return self.Concat(Delay<T>(duration));
+        }
+
+        public static IObservable<T> Delay<T>(this IObservable<T> self, TimeSpan duration, IScheduler scheduler)
+        {
+            return self.Concat(Delay<T>(duration, scheduler));
+        }
+
         private static IObservable<Unit> DelayInternal(TimeSpan duration, IScheduler scheduler)
         {
             return DelayInternal((float) duration.TotalSeconds, scheduler);
