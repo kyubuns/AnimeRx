@@ -27,6 +27,11 @@ namespace AnimeRx
             protected abstract float Function(float v);
         }
 
+        public static IAnimator Linear(TimeSpan duration)
+        {
+            return new LinearAnimator(duration);
+        }
+
         private class LinearAnimator : EasingAnimator
         {
             public LinearAnimator(TimeSpan duration) : base(duration)
@@ -37,11 +42,6 @@ namespace AnimeRx
             {
                 return v;
             }
-        }
-
-        public static IAnimator Linear(TimeSpan duration)
-        {
-            return new LinearAnimator(duration);
         }
     }
 }
