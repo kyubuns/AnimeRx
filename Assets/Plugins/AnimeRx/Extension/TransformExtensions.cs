@@ -11,6 +11,11 @@ namespace AnimeRx
             return source.SubscribeWithState(transform, (x, t) => t.position = x);
         }
 
+        public static IDisposable SubscribeToPosition(this IObservable<Vector2> source, Transform transform)
+        {
+            return source.SubscribeWithState(transform, (x, t) => t.position = x);
+        }
+
         public static IDisposable SubscribeToPositionX(this IObservable<float> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) =>
@@ -42,6 +47,11 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector3> DoToPosition(this IObservable<Vector3> source, Transform transform)
+        {
+            return source.Do(x => transform.position = x);
+        }
+
+        public static IObservable<Vector2> DoToPosition(this IObservable<Vector2> source, Transform transform)
         {
             return source.Do(x => transform.position = x);
         }
@@ -81,6 +91,11 @@ namespace AnimeRx
             return source.SubscribeWithState(transform, (x, t) => t.localPosition = x);
         }
 
+        public static IDisposable SubscribeToLocalPosition(this IObservable<Vector2> source, Transform transform)
+        {
+            return source.SubscribeWithState(transform, (x, t) => t.localPosition = x);
+        }
+
         public static IDisposable SubscribeToLocalPositionX(this IObservable<float> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) =>
@@ -112,6 +127,11 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector3> DoToLocalPosition(this IObservable<Vector3> source, Transform transform)
+        {
+            return source.Do(x => transform.localPosition = x);
+        }
+
+        public static IObservable<Vector2> DoToLocalPosition(this IObservable<Vector2> source, Transform transform)
         {
             return source.Do(x => transform.localPosition = x);
         }

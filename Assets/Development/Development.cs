@@ -10,6 +10,11 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
+            Sample2();
+        }
+
+        private void Sample1()
+        {
             var anime = new[]
             {
                 // easing
@@ -23,6 +28,19 @@ namespace AnimeRx.Dev
                 Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Motion.Uniform(1.0f)),
             };
             Observable.Concat(anime).SubscribeToLocalPosition(cube);
+        }
+
+        private void Sample2()
+        {
+            var anime = new[]
+            {
+                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
+                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
+            };
+
+            Observable.Zip(anime)
+                .Select(x => new Vector3(x[0], x[1], 0.0f))
+                .SubscribeToLocalPosition(cube);
         }
     }
 }

@@ -11,6 +11,11 @@ namespace AnimeRx
             return source.SubscribeToPosition(gameObject.transform);
         }
 
+        public static IDisposable SubscribeToPosition(this IObservable<Vector2> source, GameObject gameObject)
+        {
+            return source.SubscribeToPosition(gameObject.transform);
+        }
+
         public static IDisposable SubscribeToPositionX(this IObservable<float> source, GameObject gameObject)
         {
             return source.SubscribeToPositionX(gameObject.transform);
@@ -27,6 +32,11 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector3> DoToPosition(this IObservable<Vector3> source, GameObject gameObject)
+        {
+            return source.DoToPosition(gameObject.transform);
+        }
+
+        public static IObservable<Vector2> DoToPosition(this IObservable<Vector2> source, GameObject gameObject)
         {
             return source.DoToPosition(gameObject.transform);
         }
@@ -51,6 +61,11 @@ namespace AnimeRx
             return source.SubscribeToLocalPosition(gameObject.transform);
         }
 
+        public static IDisposable SubscribeToLocalPosition(this IObservable<Vector2> source, GameObject gameObject)
+        {
+            return source.SubscribeToLocalPosition(gameObject.transform);
+        }
+
         public static IDisposable SubscribeToLocalPositionX(this IObservable<float> source, GameObject gameObject)
         {
             return source.SubscribeToLocalPositionX(gameObject.transform);
@@ -67,6 +82,11 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector3> DoToLocalPosition(this IObservable<Vector3> source, GameObject gameObject)
+        {
+            return source.DoToLocalPosition(gameObject.transform);
+        }
+
+        public static IObservable<Vector2> DoToLocalPosition(this IObservable<Vector2> source, GameObject gameObject)
         {
             return source.DoToLocalPosition(gameObject.transform);
         }
