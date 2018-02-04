@@ -18,7 +18,7 @@ namespace AnimeRx
 
         public static IObservable<float> Play(this IObservable<float> self, float from, float to, IAnimator animator)
         {
-            return self.Concat(Play(from, to, animator));
+            return Play(self, from, to, animator, new TimeScheduler());
         }
 
         public static IObservable<float> Play(this IObservable<float> self, float from, float to, IAnimator animator, IScheduler scheduler)
@@ -26,9 +26,19 @@ namespace AnimeRx
             return self.Concat(Play(from, to, animator, scheduler));
         }
 
+        public static IObservable<float> Play(this IObservable<float> self, float to, IAnimator animator)
+        {
+            return Play(self, to, animator, new TimeScheduler());
+        }
+
+        public static IObservable<float> Play(this IObservable<float> self, float to, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+        }
+
         public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator)
         {
-            return Play(from, from + relative, animator, new TimeScheduler());
+            return PlayRelative(from, relative, animator, new TimeScheduler());
         }
 
         public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator, IScheduler scheduler)
@@ -38,7 +48,7 @@ namespace AnimeRx
 
         public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator)
         {
-            return self.Concat(Play(from, from + relative, animator));
+            return PlayRelative(self, from, relative, animator, new TimeScheduler());
         }
 
         public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator, IScheduler scheduler)

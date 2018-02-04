@@ -24,9 +24,9 @@ namespace AnimeRx.Dev
 
             Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .Delay(TimeSpan.FromSeconds(1.0f))
-                .Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+                .Play(vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .Delay(TimeSpan.FromSeconds(1.0f))
-                .Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+                .Play(vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .SubscribeToLocalPosition(cube);
         }
 

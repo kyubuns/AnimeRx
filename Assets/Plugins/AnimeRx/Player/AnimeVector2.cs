@@ -18,7 +18,7 @@ namespace AnimeRx
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 from, Vector2 to, IAnimator animator)
         {
-            return self.Concat(Play(from, to, animator));
+            return Play(self, from, to, animator, new TimeScheduler());
         }
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 from, Vector2 to, IAnimator animator, IScheduler scheduler)
@@ -26,9 +26,19 @@ namespace AnimeRx
             return self.Concat(Play(from, to, animator, scheduler));
         }
 
+        public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 to, IAnimator animator)
+        {
+            return Play(self, to, animator, new TimeScheduler());
+        }
+
+        public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 to, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+        }
+
         public static IObservable<Vector2> PlayRelative(Vector2 from, Vector2 relative, IAnimator animator)
         {
-            return Play(from, from + relative, animator, new TimeScheduler());
+            return PlayRelative(from, relative, animator, new TimeScheduler());
         }
 
         public static IObservable<Vector2> PlayRelative(Vector2 from, Vector2 relative, IAnimator animator, IScheduler scheduler)
@@ -38,7 +48,7 @@ namespace AnimeRx
 
         public static IObservable<Vector2> PlayRelative(this IObservable<Vector2> self, Vector2 from, Vector2 relative, IAnimator animator)
         {
-            return self.Concat(Play(from, from + relative, animator));
+            return PlayRelative(self, from, relative, animator, new TimeScheduler());
         }
 
         public static IObservable<Vector2> PlayRelative(this IObservable<Vector2> self, Vector2 from, Vector2 relative, IAnimator animator, IScheduler scheduler)
