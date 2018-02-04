@@ -10,10 +10,13 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
-            Sample2();
+            Observable.Concat(
+                Sample1(),
+                Sample2()
+            ).Subscribe();
         }
 
-        private void Sample1()
+        private IObservable<Unit> Sample1()
         {
             var anime = new[]
             {
@@ -23,23 +26,22 @@ namespace AnimeRx.Dev
                 Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Easing.Linear(TimeSpan.FromSeconds(2.0f))),
 
                 // motion
-                Anime.Play(new Vector3(-5.0f, 0.0f, 0.0f), new Vector3(5.0f, 0.0f, 0.0f), Motion.Uniform(1.0f)),
-                Anime.Play(new Vector3(5.0f, 0.0f, 0.0f), new Vector3(5.0f, 3.0f, 0.0f), Motion.Uniform(1.0f)),
-                Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Motion.Uniform(1.0f)),
+                Anime.Play(new Vector3(-5.0f, 0.0f, 0.0f), new Vector3(5.0f, 0.0f, 0.0f), Motion.Uniform(3.0f)),
+                Anime.Play(new Vector3(5.0f, 0.0f, 0.0f), new Vector3(5.0f, 3.0f, 0.0f), Motion.Uniform(3.0f)),
+                Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Motion.Uniform(3.0f)),
             };
-            Observable.Concat(anime).SubscribeToLocalPosition(cube);
+            return Observable.Concat(anime).DoToLocalPosition(cube).AsUnitObservable();
         }
 
-        private void Sample2()
+        private IObservable<Unit> Sample2()
         {
             var anime = new[]
             {
-                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
-                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
+                Anime.Play(-5f, 5f, Motion.Uniform(3.0f)),
+                Anime.Play(-5f, 5f, Motion.Uniform(3.0f)),
             };
 
-            Observable.Zip(anime)
-                .SubscribeToLocalPosition(cube);
+            return Observable.Zip(anime).DoToLocalPosition(cube).AsUnitObservable();
         }
     }
 }
