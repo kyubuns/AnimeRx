@@ -28,8 +28,11 @@ namespace AnimeRx.Dev
             var anime = new[]
             {
                 // easing
+                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
 
                 // motion
@@ -37,7 +40,7 @@ namespace AnimeRx.Dev
                 Anime.Play(vector[1], vector[2], Motion.Uniform(2.0f)),
                 Anime.Play(vector[2], vector[0], Motion.Uniform(2.0f)),
             };
-            return Observable.Concat(anime).DoToLocalPosition(cube).AsUnitObservable();
+            return Observable.Concat(anime).DoToLocalPosition(cube).Do(x => Debug.Log(x)).AsUnitObservable();
         }
 
         private IObservable<Unit> Sample2()
@@ -48,7 +51,7 @@ namespace AnimeRx.Dev
                 Anime.Play(-5f, 5f, Motion.Uniform(5.0f)),
             };
 
-            return Observable.CombineLatest(anime).DoToLocalPosition(cube).AsUnitObservable();
+            return Observable.CombineLatest(anime).DoToLocalPosition(cube).Do(Debug.Log).AsUnitObservable();
         }
     }
 }
