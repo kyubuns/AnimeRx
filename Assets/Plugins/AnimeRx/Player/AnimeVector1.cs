@@ -10,9 +10,10 @@ namespace AnimeRx
             return Play(from, to, animator, new TimeScheduler());
         }
 
-        public static IObservable<float> Play(float from ,float to, IAnimator animator, IScheduler scheduler)
+        public static IObservable<float> Play(float from, float to, IAnimator animator, IScheduler scheduler)
         {
-            return PlayInternal(animator, Mathf.Abs(from - to), scheduler).Select(x => Mathf.LerpUnclamped(from, to, x));
+            return PlayInternal(animator, Mathf.Abs(from - to), scheduler)
+                .Select(x => Mathf.LerpUnclamped(from, to, x));
         }
 
         public static IObservable<float> Play(this IObservable<float> self, float from, float to, IAnimator animator)

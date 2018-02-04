@@ -10,9 +10,10 @@ namespace AnimeRx
             return Play(from, to, animator, new TimeScheduler());
         }
 
-        public static IObservable<Vector2> Play(Vector2 from ,Vector2 to, IAnimator animator, IScheduler scheduler)
+        public static IObservable<Vector2> Play(Vector2 from, Vector2 to, IAnimator animator, IScheduler scheduler)
         {
-            return PlayInternal(animator, Vector2.Distance(from, to), scheduler).Select(x => Vector2.LerpUnclamped(from, to, x));
+            return PlayInternal(animator, Vector2.Distance(from, to), scheduler)
+                .Select(x => Vector2.LerpUnclamped(from, to, x));
         }
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 from, Vector2 to, IAnimator animator)
