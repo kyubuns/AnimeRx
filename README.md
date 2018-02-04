@@ -17,15 +17,15 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(1f)
 ```csharp
 var anime = new[]
 {
-    // easing - aからbに2.0秒で移動する
-    Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f))),
-    Anime.Play(new Vector3(5f, 0f, 0f), new Vector3(5f, 3f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f))),
-    Anime.Play(new Vector3(5f, 3f, 0f), new Vector3(-5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2f))),
+    // easing
+    Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+    Anime.Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+    Anime.Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
 
-    // motion - aからbに秒速1で移動する
-    Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(1f)),
-    Anime.Play(new Vector3(5f, 0f, 0f), new Vector3(5f, 3f, 0f), Motion.Uniform(1f)),
-    Anime.Play(new Vector3(5f, 3f, 0f), new Vector3(-5f, 0f, 0f), Motion.Uniform(1f)),
+    // motion
+    Anime.Play(vector[0], vector[1], Motion.Uniform(2.0f)),
+    Anime.Play(vector[1], vector[2], Motion.Uniform(2.0f)),
+    Anime.Play(vector[2], vector[0], Motion.Uniform(2.0f)),
 };
 Observable.Concat(anime).SubscribeToPosition(cube);
 ```

@@ -18,17 +18,24 @@ namespace AnimeRx.Dev
 
         private IObservable<Unit> Sample1()
         {
+            var vector = new[]
+            {
+                new Vector3(-5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, 3.0f, 0.0f),
+            };
+
             var anime = new[]
             {
                 // easing
-                Anime.Play(new Vector3(-5.0f, 0.0f, 0.0f), new Vector3(5.0f, 0.0f, 0.0f), Easing.EaseOutBack(TimeSpan.FromSeconds(2.0f))),
-                Anime.Play(new Vector3(5.0f, 0.0f, 0.0f), new Vector3(5.0f, 3.0f, 0.0f), Easing.EaseOutBack(TimeSpan.FromSeconds(2.0f))),
-                Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Easing.EaseOutBack(TimeSpan.FromSeconds(2.0f))),
+                Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+                Anime.Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
+                Anime.Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
 
                 // motion
-                Anime.Play(new Vector3(-5.0f, 0.0f, 0.0f), new Vector3(5.0f, 0.0f, 0.0f), Motion.Uniform(3.0f)),
-                Anime.Play(new Vector3(5.0f, 0.0f, 0.0f), new Vector3(5.0f, 3.0f, 0.0f), Motion.Uniform(3.0f)),
-                Anime.Play(new Vector3(5.0f, 3.0f, 0.0f), new Vector3(-5.0f, 0.0f, 0.0f), Motion.Uniform(3.0f)),
+                Anime.Play(vector[0], vector[1], Motion.Uniform(2.0f)),
+                Anime.Play(vector[1], vector[2], Motion.Uniform(2.0f)),
+                Anime.Play(vector[2], vector[0], Motion.Uniform(2.0f)),
             };
             return Observable.Concat(anime).DoToLocalPosition(cube).AsUnitObservable();
         }
