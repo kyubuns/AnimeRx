@@ -17,6 +17,16 @@ namespace AnimeRx
             return Anime.Play(transform.position, to, animator, scheduler);
         }
 
+        public static IObservable<Vector3> AnimePositionRelative(this Transform transform, Vector3 relative, IAnimator animator)
+        {
+            return Anime.PlayRelative(transform.position, relative, animator);
+        }
+
+        public static IObservable<Vector3> AnimePositionRelative(this Transform transform, Vector3 relative, IAnimator animator, IScheduler scheduler)
+        {
+            return Anime.PlayRelative(transform.position, relative, animator, scheduler);
+        }
+
         public static IDisposable SubscribeToPosition(this IObservable<Vector3> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) => t.position = x);

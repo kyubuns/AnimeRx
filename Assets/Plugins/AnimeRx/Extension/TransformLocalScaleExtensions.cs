@@ -17,6 +17,16 @@ namespace AnimeRx
             return Anime.Play(transform.localScale, to, animator, scheduler);
         }
 
+        public static IObservable<Vector3> AnimeLocalScaleRelative(this Transform transform, Vector3 relative, IAnimator animator)
+        {
+            return Anime.PlayRelative(transform.localScale, relative, animator);
+        }
+
+        public static IObservable<Vector3> AnimeLocalScaleRelative(this Transform transform, Vector3 relative, IAnimator animator, IScheduler scheduler)
+        {
+            return Anime.PlayRelative(transform.localScale, relative, animator, scheduler);
+        }
+
         public static IDisposable SubscribeToLocalScale(this IObservable<Vector3> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) => t.localScale = x);
