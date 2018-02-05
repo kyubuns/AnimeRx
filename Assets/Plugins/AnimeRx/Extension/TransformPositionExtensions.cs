@@ -12,14 +12,9 @@ namespace AnimeRx
             return source.SubscribeWithState(transform, (x, t) => t.position = x);
         }
 
-        public static IDisposable SubscribeToPosition(this IObservable<Vector2> source, Transform transform)
-        {
-            return source.SubscribeWithState(transform, (x, t) => t.position = x);
-        }
-
         public static IDisposable SubscribeToPosition(this IObservable<IList<float>> source, Transform transform)
         {
-            return source.SubscribeWithState(transform, (x, t) => t.position = x.Count >= 3 ? new Vector3(x[0], x[1], x[2]) : new Vector3(x[0], x[1]));
+            return source.SubscribeWithState(transform, (x, t) => t.position = new Vector3(x[0], x[1], x[2]));
         }
 
         public static IDisposable SubscribeToPositionX(this IObservable<float> source, Transform transform)
@@ -57,14 +52,9 @@ namespace AnimeRx
             return source.Do(x => transform.position = x);
         }
 
-        public static IObservable<Vector2> DoToPosition(this IObservable<Vector2> source, Transform transform)
-        {
-            return source.Do(x => transform.position = x);
-        }
-
         public static IObservable<IList<float>> DoToPosition(this IObservable<IList<float>> source, Transform transform)
         {
-            return source.Do(x => transform.position = x.Count >= 3 ? new Vector3(x[0], x[1], x[2]) : new Vector3(x[0], x[1]));
+            return source.Do(x => transform.position = new Vector3(x[0], x[1], x[2]));
         }
 
         public static IObservable<float> DoToPositionX(this IObservable<float> source, Transform transform)

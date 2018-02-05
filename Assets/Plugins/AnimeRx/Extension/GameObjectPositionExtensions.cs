@@ -12,11 +12,6 @@ namespace AnimeRx
             return source.SubscribeToPosition(gameObject.transform);
         }
 
-        public static IDisposable SubscribeToPosition(this IObservable<Vector2> source, GameObject gameObject)
-        {
-            return source.SubscribeToPosition(gameObject.transform);
-        }
-
         public static IDisposable SubscribeToPosition(this IObservable<IList<float>> source, GameObject gameObject)
         {
             return source.SubscribeToPosition(gameObject.transform);
@@ -38,11 +33,6 @@ namespace AnimeRx
         }
 
         public static IObservable<Vector3> DoToPosition(this IObservable<Vector3> source, GameObject gameObject)
-        {
-            return source.DoToPosition(gameObject.transform);
-        }
-
-        public static IObservable<Vector2> DoToPosition(this IObservable<Vector2> source, GameObject gameObject)
         {
             return source.DoToPosition(gameObject.transform);
         }

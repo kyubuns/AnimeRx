@@ -21,3 +21,10 @@ cp Player/AnimeVector4.cs Player/AnimeColor.cs
 sed -i '' 's/Vector4/Color/g' Player/AnimeColor.cs
 sed -i '' 's/Color.Distance/Vector4.Distance/g' Player/AnimeColor.cs
 
+# Extensions
+cp Extension/TransformLocalPositionExtensions.cs Extension/TransformPositionExtensions.cs
+sed -i '' 's/LocalPosition/Position/g' Extension/TransformPositionExtensions.cs
+sed -i '' 's/localPosition/position/g' Extension/TransformPositionExtensions.cs
+
+cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectPositionExtensions.cs
+sed -i '' 's/LocalPosition/Position/g' Extension/GameObjectPositionExtensions.cs
