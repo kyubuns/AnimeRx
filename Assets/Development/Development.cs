@@ -24,8 +24,9 @@ namespace AnimeRx.Dev
                 new Vector3(-5.0f, 0.0f, 0.0f),
             };
 
-            Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f))
-                .Play(cube.transform.localPosition, vector, Motion.From(curve, TimeSpan.FromSeconds(4.0f)))
+            Anime.Wait(TimeSpan.FromSeconds(1.0f), cube.transform.localPosition)
+                .Play(vector, Motion.From(curve, TimeSpan.FromSeconds(4.0f)))
+                .Play(new Vector3(-5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2.0f)))
                 .SubscribeToLocalPosition(cube);
         }
 
