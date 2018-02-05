@@ -30,9 +30,23 @@ cp Extension/TransformLocalPositionExtensions.cs Extension/TransformLocalScaleEx
 sed -i '' 's/LocalPosition/LocalScale/g' Extension/TransformLocalScaleExtensions.cs
 sed -i '' 's/localPosition/localScale/g' Extension/TransformLocalScaleExtensions.cs
 
+cp Extension/TransformLocalPositionExtensions.cs Extension/TransformLocalRotationExtensions.cs
+sed -i '' 's/LocalPosition/LocalRotation/g' Extension/TransformLocalRotationExtensions.cs
+sed -i '' 's/localPosition/localEulerAngles/g' Extension/TransformLocalRotationExtensions.cs
+
+cp Extension/TransformLocalPositionExtensions.cs Extension/TransformRotationExtensions.cs
+sed -i '' 's/LocalPosition/Rotation/g' Extension/TransformRotationExtensions.cs
+sed -i '' 's/localPosition/eulerAngles/g' Extension/TransformRotationExtensions.cs
+
 cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectPositionExtensions.cs
 sed -i '' 's/LocalPosition/Position/g' Extension/GameObjectPositionExtensions.cs
 
 cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectLocalScaleExtensions.cs
 sed -i '' 's/LocalPosition/LocalScale/g' Extension/GameObjectLocalScaleExtensions.cs
+
+cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectLocalRotationExtensions.cs
+sed -i '' 's/LocalPosition/LocalRotation/g' Extension/GameObjectLocalRotationExtensions.cs
+
+cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectRotationExtensions.cs
+sed -i '' 's/LocalPosition/Rotation/g' Extension/GameObjectRotationExtensions.cs
 
