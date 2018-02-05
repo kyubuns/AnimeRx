@@ -4,7 +4,7 @@ namespace AnimeRx
 {
     public static partial class Motion
     {
-        public static IAnimator InAcceleration(float velocityMax, float acceleration)
+        public static IAnimator InAcceleration(float acceleration, float velocityMax = float.MaxValue)
         {
             throw new NotImplementedException();
         }

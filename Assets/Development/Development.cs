@@ -11,7 +11,14 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
-            Sample5();
+            Sample6();
+        }
+
+        private void Sample6()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.InAcceleration(10.0f))
+                .Do(x => Debug.Log(x))
+                .SubscribeToLocalPosition(cube);
         }
 
         private void Sample5()
