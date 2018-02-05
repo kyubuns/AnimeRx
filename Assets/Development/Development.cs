@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using UniRx;
+using UnityEditor;
 using UnityEngine;
 
 namespace AnimeRx.Dev
@@ -9,85 +11,29 @@ namespace AnimeRx.Dev
         [SerializeField] private GameObject cube;
         [SerializeField] private AnimationCurve curve;
 
-        public void Start()
+        public IEnumerator Start()
         {
-            Sample6();
+            cube.transform.position = new Vector3(-5f, 0f, 0f);
+            yield return new WaitForSeconds(0.5f);
+            Sample1();
         }
 
-        private void Sample6()
+        private void Sample1()
         {
-            Anime.Play(new Vector3(0f, 0f, 0f), new Vector3(100f, 0f, 0f), Motion.Acceleration(1.0f, 2.0f))
-                .Do(x => Debug.LogFormat("{0}:{1}", Time.time, x))
-                .SubscribeToLocalPosition(cube);
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f))
+                .StopRecording()
+                .SubscribeToPosition(cube);
         }
+    }
 
-        private void Sample5()
+    public static class Util
+    {
+        public static IObservable<T> StopRecording<T>(this IObservable<T> source)
         {
-            var vector = new[]
+            return source.DoOnCompleted(() =>
             {
-                new Vector3(-5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, -3.0f, 0.0f),
-                new Vector3(-5.0f, 0.0f, 0.0f),
-            };
-
-            Anime.Wait(TimeSpan.FromSeconds(1.0f), cube.transform.localPosition)
-                .Play(vector, Motion.From(curve, TimeSpan.FromSeconds(4.0f)))
-                .Play(new Vector3(-5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2.0f)))
-                .SubscribeToLocalPosition(cube);
-        }
-
-        private void Sample4()
-        {
-            var vector = new[]
-            {
-                new Vector3(-5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, -3.0f, 0.0f),
-                new Vector3(-5.0f, 0.0f, 0.0f),
-            };
-
-            Anime.Play(vector, Easing.EaseInOutBack(TimeSpan.FromSeconds(3.0f)))
-                .SubscribeToLocalPosition(cube);
-        }
-
-        private IObservable<Unit> Sample1()
-        {
-            var vector = new[]
-            {
-                new Vector3(-5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, 3.0f, 0.0f),
-            };
-
-            var anime = new[]
-            {
-                // easing
-                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
-                Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
-                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
-                Anime.Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
-                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
-                Anime.Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
-
-                // motion
-                Anime.Play(vector[0], vector[1], Motion.Uniform(2.0f)),
-                Anime.Play(vector[1], vector[2], Motion.Uniform(2.0f)),
-                Anime.Play(vector[2], vector[0], Motion.Uniform(2.0f)),
-            };
-            return Observable.Concat(anime).DoToLocalPosition(cube).Do(x => Debug.Log(x)).AsUnitObservable();
-        }
-
-        private IObservable<Unit> Sample2()
-        {
-            var anime = new[]
-            {
-                Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
-                Anime.Play(-5f, 5f, Motion.Uniform(5.0f)),
-                Anime.Stay(3.0f),
-            };
-
-            return Observable.CombineLatest(anime).DoToLocalPosition(cube).Do(Debug.Log).AsUnitObservable();
+                Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(x => EditorApplication.isPlaying = false);
+            });
         }
     }
 }
