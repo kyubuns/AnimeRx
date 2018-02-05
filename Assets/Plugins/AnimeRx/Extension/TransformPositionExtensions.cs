@@ -7,19 +7,9 @@ namespace AnimeRx
 {
     public static class TransformPositionExtensions
     {
-        public static IObservable<Vector3> AnimePosition(this Transform transform, Vector3 from, Vector3 to, IAnimator animator)
-        {
-            return Anime.Play(from, to, animator);
-        }
-
         public static IObservable<Vector3> AnimePosition(this Transform transform, Vector3 to, IAnimator animator)
         {
             return Anime.Play(transform.position, to, animator);
-        }
-
-        public static IObservable<Vector3> AnimePosition(this Transform transform, Vector3 from, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return Anime.Play(from, to, animator, scheduler);
         }
 
         public static IObservable<Vector3> AnimePosition(this Transform transform, Vector3 to, IAnimator animator, IScheduler scheduler)
