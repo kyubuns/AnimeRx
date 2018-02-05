@@ -10,7 +10,7 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
-            Sample3();
+            Sample2().Subscribe();
         }
 
         private void Sample3()
@@ -23,9 +23,9 @@ namespace AnimeRx.Dev
             };
 
             cube.AnimeLocalPosition(vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
-                .Delay(TimeSpan.FromSeconds(1.0f))
+                .Wait(TimeSpan.FromSeconds(1.0f))
                 .Play(vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
-                .Delay(TimeSpan.FromSeconds(1.0f))
+                .Wait(TimeSpan.FromSeconds(1.0f))
                 .Play(vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .SubscribeToLocalPosition(cube);
         }
@@ -42,11 +42,11 @@ namespace AnimeRx.Dev
             var anime = new[]
             {
                 // easing
-                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
+                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
-                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
+                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[1], vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
-                Anime.Delay<Vector3>(TimeSpan.FromSeconds(1.0f)),
+                Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f)),
                 Anime.Play(vector[2], vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(2.0f))),
 
                 // motion
@@ -63,6 +63,7 @@ namespace AnimeRx.Dev
             {
                 Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
                 Anime.Play(-5f, 5f, Motion.Uniform(5.0f)),
+                Anime.Return(3.0f);
             };
 
             return Observable.CombineLatest(anime).DoToLocalPosition(cube).Do(Debug.Log).AsUnitObservable();
