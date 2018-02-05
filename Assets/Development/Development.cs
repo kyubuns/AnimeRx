@@ -22,7 +22,7 @@ namespace AnimeRx.Dev
                 new Vector3(5.0f, -3.0f, 0.0f),
             };
 
-            Anime.Play(vector[0], vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
+            cube.AnimeLocalPosition(vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .Delay(TimeSpan.FromSeconds(1.0f))
                 .Play(vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
                 .Delay(TimeSpan.FromSeconds(1.0f))
