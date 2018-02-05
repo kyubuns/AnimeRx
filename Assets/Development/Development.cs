@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UniRx;
+using UniRx.Examples;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,18 +10,132 @@ namespace AnimeRx.Dev
     public class Development : MonoBehaviour
     {
         [SerializeField] private GameObject cube;
+        [SerializeField] private GameObject cube2;
         [SerializeField] private AnimationCurve curve;
 
         public IEnumerator Start()
         {
             cube.transform.position = new Vector3(-5f, 0f, 0f);
+            // cube2.transform.position = new Vector3(5f, 0f, 0f);
+            cube2.SetActive(false);
             yield return new WaitForSeconds(0.5f);
-            Sample1();
+            Sample11();
         }
 
         private void Sample1()
         {
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f))
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample2()
+        {
+            var animator = Motion.Uniform(5f);
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), animator)
+                .Play(new Vector3(0f, 3f, 0f), animator)
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample3()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseOutQuad(TimeSpan.FromSeconds(2f)))
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample4()
+        {
+            var positions = new[]
+            {
+                new Vector3(-5f, 0f, 0f),
+                new Vector3(0f, 3f, 0f),
+                new Vector3(5f, 0f, 0f),
+                new Vector3(0f, -3f, 0f),
+                new Vector3(-5f, 0f, 0f),
+            };
+
+            Anime.Play(positions, Easing.EaseInOutSine(TimeSpan.FromSeconds(6f)))
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample5()
+        {
+            var x = Anime.Play(-5f, 5f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)));
+
+            var y = Anime.Play(0f, 3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(1.5f)))
+                .Play(0f, Easing.EaseInOutSine(TimeSpan.FromSeconds(1.5f)));
+
+            var z = Anime.Stay(0f);
+
+            Observable.CombineLatest(x, y, z)
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample6()
+        {
+            cube.transform.position
+                .Play(new Vector3(3f, 3f, 0f), Easing.EaseOutBack(TimeSpan.FromSeconds(2f)))
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample7()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
+                .Play(new Vector3(-5f, 0f, 0f), Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
+                .Repeat()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample8()
+        {
+            Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
+                .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
+                .Select(x => x * 3f)
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample9()
+        {
+            var leftCube1 = Anime
+                .Play(new Vector3(-5f, 0f, 0f), new Vector3(-0.5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2.5f)))
+                .DoToPosition(cube);
+
+            var rightCube1 = Anime
+                .Play(new Vector3(5f, 0f, 0f), new Vector3(0.5f, 0f, 0f), Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
+                .DoToPosition(cube2);
+
+            var leftCube2 = Anime
+                .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f), Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
+                .DoToPosition(cube);
+
+            var rightCube2 = Anime
+                .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f), Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
+                .DoToPosition(cube2);
+
+            Observable.WhenAll(leftCube1, rightCube1)
+                .ContinueWith(Observable.WhenAll(leftCube2, rightCube2))
+                .StopRecording()
+                .Subscribe();
+        }
+
+        private void Sample10()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.EaseOutExpo(TimeSpan.FromSeconds(2f)))
+                .Wait(TimeSpan.FromSeconds(1f))
+                .Play(new Vector3(5f, 0f, 0f), Easing.EaseOutExpo(TimeSpan.FromSeconds(2f)))
+                .StopRecording()
+                .SubscribeToPosition(cube);
+        }
+
+        private void Sample11()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
