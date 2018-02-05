@@ -15,7 +15,8 @@ sed -i '' 's/Vector4/Vector2/g' Player/AnimeVector2.cs
 cp Player/AnimeVector4.cs Player/AnimeVector1.cs
 sed -i '' 's/Vector4/float/g' Player/AnimeVector1.cs
 sed -i '' 's/float.Distance(from, to)/Mathf.Abs(from - to)/g' Player/AnimeVector1.cs
-sed -i '' 's/float.LerpUnclamped/Mathf.LerpUnclamped/g' Player/AnimeVector1.cs
+sed -i '' 's/float.Distance(path\[i\], path\[i + 1\])/Mathf.Abs(path\[i\] - path\[i + 1\])/g' Player/AnimeVector1.cs
+sed -i '' 's/float.Lerp/Mathf.Lerp/g' Player/AnimeVector1.cs
 
 cp Player/AnimeVector4.cs Player/AnimeColor.cs
 sed -i '' 's/Vector4/Color/g' Player/AnimeColor.cs

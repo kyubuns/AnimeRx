@@ -10,7 +10,21 @@ namespace AnimeRx.Dev
 
         public void Start()
         {
-            Sample2().Subscribe();
+            Sample4();
+        }
+
+        private void Sample4()
+        {
+            var vector = new[]
+            {
+                new Vector3(-5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, -3.0f, 0.0f),
+                new Vector3(-5.0f, 0.0f, 0.0f),
+            };
+
+            Anime.Play(vector, Easing.EaseOutBack(TimeSpan.FromSeconds(3.0f)))
+                .SubscribeToLocalPosition(cube);
         }
 
         private void Sample3()

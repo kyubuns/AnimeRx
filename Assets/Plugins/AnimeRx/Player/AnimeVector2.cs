@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace AnimeRx
@@ -14,6 +15,36 @@ namespace AnimeRx
         {
             return PlayInternal(animator, Vector2.Distance(from, to), scheduler)
                 .Select(x => Vector2.LerpUnclamped(from, to, x));
+        }
+
+        public static IObservable<Vector2> Play(Vector2[] path, IAnimator animator)
+        {
+            return Play(path, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector2> Play(Vector2[] path, IAnimator animator, IScheduler scheduler)
+        {
+            var distance = new List<float>();
+            var sum = 0.0f;
+            for (var i = 0; i < path.Length - 1; ++i)
+            {
+                var d = Vector2.Distance(path[i], path[i + 1]);
+                distance.Add(sum + d);
+                sum += d;
+            }
+            return PlayInternal(animator, sum, scheduler)
+                .Select(x =>
+                {
+                    var a = x * sum;
+                    var i = 0;
+                    for (; i < distance.Count - 1; i++)
+                    {
+                        if (distance[i] > a) break;
+                    }
+
+                    var b = i == 0 ? 0 : distance[i - 1];
+                    return Vector2.LerpUnclamped(path[i], path[i + 1], (a - b) / (distance[i] - b));
+                });
         }
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 from, Vector2 to, IAnimator animator)
