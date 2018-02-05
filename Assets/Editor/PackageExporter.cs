@@ -15,7 +15,7 @@ namespace Development
             };
             var outputPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "AnimeRx.unitypackage");
 
-            AssetDatabase.ExportPackage(directories, outputPath);
+            AssetDatabase.ExportPackage(directories, outputPath, ExportPackageOptions.Recurse);
 
             Debug.LogFormat("ExportPackage {0}", outputPath);
         }
