@@ -63,7 +63,7 @@ namespace AnimeRx.Dev
             {
                 Anime.Play(-5f, 5f, Motion.Uniform(1.0f)),
                 Anime.Play(-5f, 5f, Motion.Uniform(5.0f)),
-                Anime.Return(3.0f);
+                Anime.Stay(3.0f),
             };
 
             return Observable.CombineLatest(anime).DoToLocalPosition(cube).Do(Debug.Log).AsUnitObservable();
