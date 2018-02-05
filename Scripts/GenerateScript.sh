@@ -51,3 +51,12 @@ sed -i '' 's/LocalPosition/LocalRotation/g' Extension/GameObjectLocalRotationExt
 cp Extension/GameObjectLocalPositionExtensions.cs Extension/GameObjectRotationExtensions.cs
 sed -i '' 's/LocalPosition/Rotation/g' Extension/GameObjectRotationExtensions.cs
 
+cp Extension/Vector4Extensions.cs Extension/Vector3Extensions.cs
+sed -i '' 's/Vector4/Vector3/g' Extension/Vector3Extensions.cs
+
+cp Extension/Vector4Extensions.cs Extension/Vector2Extensions.cs
+sed -i '' 's/Vector4/Vector2/g' Extension/Vector2Extensions.cs
+
+cp Extension/Vector4Extensions.cs Extension/Vector1Extensions.cs
+sed -i '' 's/Vector4/float/g' Extension/Vector1Extensions.cs
+sed -i '' 's/floatExtensions/Vector1Extensions/g' Extension/Vector1Extensions.cs
