@@ -7,7 +7,7 @@ namespace AnimeRx
     {
         public static IObservable<float> Play(float from, float to, IAnimator animator)
         {
-            return Play(from, to, animator, new TimeScheduler());
+            return Play(from, to, animator, DefaultScheduler);
         }
 
         public static IObservable<float> Play(float from, float to, IAnimator animator, IScheduler scheduler)
@@ -18,7 +18,7 @@ namespace AnimeRx
 
         public static IObservable<float> Play(this IObservable<float> self, float from, float to, IAnimator animator)
         {
-            return Play(self, from, to, animator, new TimeScheduler());
+            return Play(self, from, to, animator, DefaultScheduler);
         }
 
         public static IObservable<float> Play(this IObservable<float> self, float from, float to, IAnimator animator, IScheduler scheduler)
@@ -28,7 +28,7 @@ namespace AnimeRx
 
         public static IObservable<float> Play(this IObservable<float> self, float to, IAnimator animator)
         {
-            return Play(self, to, animator, new TimeScheduler());
+            return Play(self, to, animator, DefaultScheduler);
         }
 
         public static IObservable<float> Play(this IObservable<float> self, float to, IAnimator animator, IScheduler scheduler)
@@ -38,7 +38,7 @@ namespace AnimeRx
 
         public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator)
         {
-            return PlayRelative(from, relative, animator, new TimeScheduler());
+            return PlayRelative(from, relative, animator, DefaultScheduler);
         }
 
         public static IObservable<float> PlayRelative(float from, float relative, IAnimator animator, IScheduler scheduler)
@@ -48,7 +48,7 @@ namespace AnimeRx
 
         public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator)
         {
-            return PlayRelative(self, from, relative, animator, new TimeScheduler());
+            return PlayRelative(self, from, relative, animator, DefaultScheduler);
         }
 
         public static IObservable<float> PlayRelative(this IObservable<float> self, float from, float relative, IAnimator animator, IScheduler scheduler)

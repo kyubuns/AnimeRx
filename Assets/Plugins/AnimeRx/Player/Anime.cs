@@ -5,6 +5,14 @@ namespace AnimeRx
 {
     public static partial class Anime
     {
+        private static IScheduler defaultScheduler = new TimeScheduler();
+
+        public static IScheduler DefaultScheduler
+        {
+            get { return defaultScheduler; }
+            set { defaultScheduler = value; }
+        }
+
         private static IObservable<float> PlayInternal(IAnimator animator, float distance, IScheduler scheduler)
         {
             return Observable.FromCoroutine<float>((observer, token) =>

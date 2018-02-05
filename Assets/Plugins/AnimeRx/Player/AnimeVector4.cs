@@ -7,7 +7,7 @@ namespace AnimeRx
     {
         public static IObservable<Vector4> Play(Vector4 from, Vector4 to, IAnimator animator)
         {
-            return Play(from, to, animator, new TimeScheduler());
+            return Play(from, to, animator, DefaultScheduler);
         }
 
         public static IObservable<Vector4> Play(Vector4 from, Vector4 to, IAnimator animator, IScheduler scheduler)
@@ -18,7 +18,7 @@ namespace AnimeRx
 
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 from, Vector4 to, IAnimator animator)
         {
-            return Play(self, from, to, animator, new TimeScheduler());
+            return Play(self, from, to, animator, DefaultScheduler);
         }
 
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 from, Vector4 to, IAnimator animator, IScheduler scheduler)
@@ -28,7 +28,7 @@ namespace AnimeRx
 
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 to, IAnimator animator)
         {
-            return Play(self, to, animator, new TimeScheduler());
+            return Play(self, to, animator, DefaultScheduler);
         }
 
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 to, IAnimator animator, IScheduler scheduler)
@@ -38,7 +38,7 @@ namespace AnimeRx
 
         public static IObservable<Vector4> PlayRelative(Vector4 from, Vector4 relative, IAnimator animator)
         {
-            return PlayRelative(from, relative, animator, new TimeScheduler());
+            return PlayRelative(from, relative, animator, DefaultScheduler);
         }
 
         public static IObservable<Vector4> PlayRelative(Vector4 from, Vector4 relative, IAnimator animator, IScheduler scheduler)
@@ -48,7 +48,7 @@ namespace AnimeRx
 
         public static IObservable<Vector4> PlayRelative(this IObservable<Vector4> self, Vector4 from, Vector4 relative, IAnimator animator)
         {
-            return PlayRelative(self, from, relative, animator, new TimeScheduler());
+            return PlayRelative(self, from, relative, animator, DefaultScheduler);
         }
 
         public static IObservable<Vector4> PlayRelative(this IObservable<Vector4> self, Vector4 from, Vector4 relative, IAnimator animator, IScheduler scheduler)

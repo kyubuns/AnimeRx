@@ -7,7 +7,7 @@ namespace AnimeRx
     {
         public static IObservable<Unit> Delay(TimeSpan duration)
         {
-            return Delay(duration, new TimeScheduler());
+            return Delay(duration, DefaultScheduler);
         }
 
         public static IObservable<Unit> Delay(TimeSpan duration, IScheduler scheduler)
@@ -17,7 +17,7 @@ namespace AnimeRx
 
         public static IObservable<T> Delay<T>(TimeSpan duration)
         {
-            return Delay<T>(duration, new TimeScheduler());
+            return Delay<T>(duration, DefaultScheduler);
         }
 
         public static IObservable<T> Delay<T>(TimeSpan duration, IScheduler scheduler)
