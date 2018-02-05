@@ -2,9 +2,11 @@
 
 Unity + Rx Tween Animation Library
 
-## Basic
-
 - ```IObservable<T> Anime.Play(T from, T to, IAnimator animator)```
+
+## UnityPackage
+
+- https://github.com/kyubuns/AnimeRx/releases
 
 ## Examples
 
