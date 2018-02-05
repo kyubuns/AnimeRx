@@ -8,5 +8,10 @@ namespace AnimeRx
         {
             return Observable.Return(value);
         }
+
+        public static IObservable<T> Stay<T>(this IObservable<T> self, T value)
+        {
+            return self.Concat(Stay(value));
+        }
     }
 }

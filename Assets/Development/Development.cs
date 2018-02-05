@@ -7,10 +7,26 @@ namespace AnimeRx.Dev
     public class Development : MonoBehaviour
     {
         [SerializeField] private GameObject cube;
+        [SerializeField] private AnimationCurve curve;
 
         public void Start()
         {
-            Sample4();
+            Sample5();
+        }
+
+        private void Sample5()
+        {
+            var vector = new[]
+            {
+                new Vector3(-5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, 0.0f, 0.0f),
+                new Vector3(5.0f, -3.0f, 0.0f),
+                new Vector3(-5.0f, 0.0f, 0.0f),
+            };
+
+            Anime.Wait<Vector3>(TimeSpan.FromSeconds(1.0f))
+                .Play(cube.transform.localPosition, vector, Motion.From(curve, TimeSpan.FromSeconds(4.0f)))
+                .SubscribeToLocalPosition(cube);
         }
 
         private void Sample4()
@@ -23,7 +39,7 @@ namespace AnimeRx.Dev
                 new Vector3(-5.0f, 0.0f, 0.0f),
             };
 
-            Anime.Play(vector, Easing.EaseOutBack(TimeSpan.FromSeconds(3.0f)))
+            Anime.Play(vector, Easing.EaseInOutBack(TimeSpan.FromSeconds(3.0f)))
                 .SubscribeToLocalPosition(cube);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -57,6 +58,19 @@ namespace AnimeRx
             return self.Concat(Play(from, to, animator, scheduler));
         }
 
+        public static IObservable<Color> Play(this IObservable<Color> self, Color from, Color[] path, IAnimator animator)
+        {
+            return Play(self, from, path, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> Play(this IObservable<Color> self, Color from, Color[] path, IAnimator animator, IScheduler scheduler)
+        {
+            var merged = new Color[path.Length + 1];
+            merged[0] = from;
+            Array.Copy(path, 0, merged, 1, path.Length);
+            return self.Concat(Play(merged, animator, scheduler));
+        }
+
         public static IObservable<Color> Play(this IObservable<Color> self, Color to, IAnimator animator)
         {
             return Play(self, to, animator, DefaultScheduler);
@@ -65,6 +79,22 @@ namespace AnimeRx
         public static IObservable<Color> Play(this IObservable<Color> self, Color to, IAnimator animator, IScheduler scheduler)
         {
             return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+        }
+
+        public static IObservable<Color> Play(this IObservable<Color> self, Color[] path, IAnimator animator)
+        {
+            return Play(self, path, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> Play(this IObservable<Color> self, Color[] path, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x =>
+            {
+                var merged = new Color[path.Length + 1];
+                merged[0] = x;
+                Array.Copy(path, 0, merged, 1, path.Length);
+                return Play(merged, animator, scheduler);
+            }).Switch();
         }
 
         public static IObservable<Color> PlayRelative(Color from, Color relative, IAnimator animator)

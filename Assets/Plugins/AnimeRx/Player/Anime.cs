@@ -38,17 +38,15 @@ namespace AnimeRx
                 }
 
                 var now = scheduler.Now - start;
+                observer.OnNext(animator.CalcPosition(now, distance));
                 if (animator.CalcFinishTime(distance) < now)
                 {
                     break;
                 }
 
-                observer.OnNext(animator.CalcPosition(now, distance));
-
                 yield return null;
             }
 
-            observer.OnNext(1.0f);
             observer.OnCompleted();
         }
 

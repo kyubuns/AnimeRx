@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -57,6 +58,19 @@ namespace AnimeRx
             return self.Concat(Play(from, to, animator, scheduler));
         }
 
+        public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 from, Vector4[] path, IAnimator animator)
+        {
+            return Play(self, from, path, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 from, Vector4[] path, IAnimator animator, IScheduler scheduler)
+        {
+            var merged = new Vector4[path.Length + 1];
+            merged[0] = from;
+            Array.Copy(path, 0, merged, 1, path.Length);
+            return self.Concat(Play(merged, animator, scheduler));
+        }
+
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 to, IAnimator animator)
         {
             return Play(self, to, animator, DefaultScheduler);
@@ -65,6 +79,22 @@ namespace AnimeRx
         public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4 to, IAnimator animator, IScheduler scheduler)
         {
             return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+        }
+
+        public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4[] path, IAnimator animator)
+        {
+            return Play(self, path, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector4> Play(this IObservable<Vector4> self, Vector4[] path, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x =>
+            {
+                var merged = new Vector4[path.Length + 1];
+                merged[0] = x;
+                Array.Copy(path, 0, merged, 1, path.Length);
+                return Play(merged, animator, scheduler);
+            }).Switch();
         }
 
         public static IObservable<Vector4> PlayRelative(Vector4 from, Vector4 relative, IAnimator animator)
