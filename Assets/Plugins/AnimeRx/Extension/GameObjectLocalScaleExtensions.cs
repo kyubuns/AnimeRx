@@ -7,16 +7,6 @@ namespace AnimeRx
 {
     public static class GameObjectLocalScaleExtensions
     {
-        public static IObservable<Vector3> AnimeLocalScale(this GameObject gameObject, Vector3 to, IAnimator animator)
-        {
-            return gameObject.transform.AnimeLocalScale(to, animator);
-        }
-
-        public static IObservable<Vector3> AnimeLocalScale(this GameObject gameObject, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return gameObject.transform.AnimeLocalScale(to, animator, scheduler);
-        }
-
         public static IDisposable SubscribeToLocalScale(this IObservable<Vector3> source, GameObject gameObject)
         {
             return source.SubscribeToLocalScale(gameObject.transform);

@@ -7,26 +7,6 @@ namespace AnimeRx
 {
     public static class TransformLocalPositionExtensions
     {
-        public static IObservable<Vector3> AnimeLocalPosition(this Transform transform, Vector3 to, IAnimator animator)
-        {
-            return Anime.Play(transform.localPosition, to, animator);
-        }
-
-        public static IObservable<Vector3> AnimeLocalPosition(this Transform transform, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return Anime.Play(transform.localPosition, to, animator, scheduler);
-        }
-
-        public static IObservable<Vector3> AnimeLocalPositionRelative(this Transform transform, Vector3 relative, IAnimator animator)
-        {
-            return Anime.PlayRelative(transform.localPosition, relative, animator);
-        }
-
-        public static IObservable<Vector3> AnimeLocalPositionRelative(this Transform transform, Vector3 relative, IAnimator animator, IScheduler scheduler)
-        {
-            return Anime.PlayRelative(transform.localPosition, relative, animator, scheduler);
-        }
-
         public static IDisposable SubscribeToLocalPosition(this IObservable<Vector3> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) => t.localPosition = x);

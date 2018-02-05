@@ -44,23 +44,6 @@ namespace AnimeRx.Dev
                 .SubscribeToLocalPosition(cube);
         }
 
-        private void Sample3()
-        {
-            var vector = new[]
-            {
-                new Vector3(-5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, 0.0f, 0.0f),
-                new Vector3(5.0f, -3.0f, 0.0f),
-            };
-
-            cube.AnimeLocalPosition(vector[1], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
-                .Wait(TimeSpan.FromSeconds(1.0f))
-                .Play(vector[2], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
-                .Wait(TimeSpan.FromSeconds(1.0f))
-                .Play(vector[0], Easing.EaseOutCirc(TimeSpan.FromSeconds(1.0f)))
-                .SubscribeToLocalPosition(cube);
-        }
-
         private IObservable<Unit> Sample1()
         {
             var vector = new[]

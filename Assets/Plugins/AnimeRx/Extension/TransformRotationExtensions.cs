@@ -7,26 +7,6 @@ namespace AnimeRx
 {
     public static class TransformRotationExtensions
     {
-        public static IObservable<Vector3> AnimeRotation(this Transform transform, Vector3 to, IAnimator animator)
-        {
-            return Anime.Play(transform.eulerAngles, to, animator);
-        }
-
-        public static IObservable<Vector3> AnimeRotation(this Transform transform, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return Anime.Play(transform.eulerAngles, to, animator, scheduler);
-        }
-
-        public static IObservable<Vector3> AnimeRotationRelative(this Transform transform, Vector3 relative, IAnimator animator)
-        {
-            return Anime.PlayRelative(transform.eulerAngles, relative, animator);
-        }
-
-        public static IObservable<Vector3> AnimeRotationRelative(this Transform transform, Vector3 relative, IAnimator animator, IScheduler scheduler)
-        {
-            return Anime.PlayRelative(transform.eulerAngles, relative, animator, scheduler);
-        }
-
         public static IDisposable SubscribeToRotation(this IObservable<Vector3> source, Transform transform)
         {
             return source.SubscribeWithState(transform, (x, t) => t.eulerAngles = x);

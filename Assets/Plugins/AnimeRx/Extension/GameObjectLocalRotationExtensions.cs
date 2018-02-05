@@ -7,16 +7,6 @@ namespace AnimeRx
 {
     public static class GameObjectLocalRotationExtensions
     {
-        public static IObservable<Vector3> AnimeLocalRotation(this GameObject gameObject, Vector3 to, IAnimator animator)
-        {
-            return gameObject.transform.AnimeLocalRotation(to, animator);
-        }
-
-        public static IObservable<Vector3> AnimeLocalRotation(this GameObject gameObject, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return gameObject.transform.AnimeLocalRotation(to, animator, scheduler);
-        }
-
         public static IDisposable SubscribeToLocalRotation(this IObservable<Vector3> source, GameObject gameObject)
         {
             return source.SubscribeToLocalRotation(gameObject.transform);

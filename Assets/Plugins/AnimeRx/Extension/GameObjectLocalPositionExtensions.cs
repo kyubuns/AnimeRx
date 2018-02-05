@@ -7,16 +7,6 @@ namespace AnimeRx
 {
     public static class GameObjectLocalPositionExtensions
     {
-        public static IObservable<Vector3> AnimeLocalPosition(this GameObject gameObject, Vector3 to, IAnimator animator)
-        {
-            return gameObject.transform.AnimeLocalPosition(to, animator);
-        }
-
-        public static IObservable<Vector3> AnimeLocalPosition(this GameObject gameObject, Vector3 to, IAnimator animator, IScheduler scheduler)
-        {
-            return gameObject.transform.AnimeLocalPosition(to, animator, scheduler);
-        }
-
         public static IDisposable SubscribeToLocalPosition(this IObservable<Vector3> source, GameObject gameObject)
         {
             return source.SubscribeToLocalPosition(gameObject.transform);
