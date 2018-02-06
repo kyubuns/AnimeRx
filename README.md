@@ -10,7 +10,7 @@ Unity + Rx Tween Animation Library
 
 ## Examples
 
-### First
+### Basic
 
 ![sample1](https://user-images.githubusercontent.com/961165/35796308-7d0512aa-0a9f-11e8-9c66-c1dceeeafb72.gif)
 
@@ -21,7 +21,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f)
     .SubscribeToPosition(cube);
 ```
 
-### Method chain
+### Method Chain
 
 ![sample2](https://user-images.githubusercontent.com/961165/35796309-7d2bbdf6-0a9f-11e8-8fe1-acef944a36c0.gif)
 
@@ -96,6 +96,17 @@ Observable.CombineLatest(x, y, z)
     .SubscribeToPosition(cube);
 ```
 
+### AnimationCurve
+
+![sample11](https://user-images.githubusercontent.com/961165/35796322-7e6983e2-0a9f-11e8-807c-ff3a2967a2cf.gif)
+
+UnityEngine.AnimationCurveを利用して移動。
+
+```csharp
+Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
+    .SubscribeToPosition(cube);
+```
+
 ### Extensions
 
 ![sample6](https://user-images.githubusercontent.com/961165/35796317-7dc739de-0a9f-11e8-8aef-599e7e325efc.gif)
@@ -121,7 +132,7 @@ Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
     .SubscribeToPosition(cube);
 ```
 
-### Advanced - Timing
+### Advanced - WhenAll
 
 ![sample9](https://user-images.githubusercontent.com/961165/35796319-7e1568d4-0a9f-11e8-8e08-28ff53093e8c.gif)
 
@@ -147,17 +158,6 @@ var rightCube2 = Anime
 Observable.WhenAll(leftCube1, rightCube1)
     .ContinueWith(Observable.WhenAll(leftCube2, rightCube2))
     .Subscribe();
-```
-
-### AnimationCurve
-
-![sample11](https://user-images.githubusercontent.com/961165/35796322-7e6983e2-0a9f-11e8-807c-ff3a2967a2cf.gif)
-
-UnityEngine.AnimationCurveを利用して移動。
-
-```csharp
-Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
-    .SubscribeToPosition(cube);
 ```
 
 ## Special thanks
