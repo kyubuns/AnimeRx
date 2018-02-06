@@ -4,6 +4,7 @@ using UniRx;
 using UniRx.Examples;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AnimeRx.Dev
 {
@@ -12,14 +13,19 @@ namespace AnimeRx.Dev
         [SerializeField] private GameObject cube;
         [SerializeField] private GameObject cube2;
         [SerializeField] private AnimationCurve curve;
+        [SerializeField] private Slider slider1;
+        [SerializeField] private Slider slider2;
 
         public IEnumerator Start()
         {
             cube.transform.position = new Vector3(-5f, 0f, 0f);
+            cube.SetActive(false);
             // cube2.transform.position = new Vector3(5f, 0f, 0f);
             cube2.SetActive(false);
+            slider1.value = 1.0f;
+            slider2.value = 1.0f;
             yield return new WaitForSeconds(0.5f);
-            Sample11();
+            Sample13();
         }
 
         private void Sample1()
@@ -85,7 +91,8 @@ namespace AnimeRx.Dev
 
         private void Sample7()
         {
-            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f),
+                    Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
                 .Play(new Vector3(-5f, 0f, 0f), Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
                 .Repeat()
                 .SubscribeToPosition(cube);
@@ -111,11 +118,13 @@ namespace AnimeRx.Dev
                 .DoToPosition(cube2);
 
             var leftCube2 = Anime
-                .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f), Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
+                .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f),
+                    Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
                 .DoToPosition(cube);
 
             var rightCube2 = Anime
-                .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f), Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
+                .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f),
+                    Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
                 .DoToPosition(cube2);
 
             Observable.WhenAll(leftCube1, rightCube1)
@@ -138,6 +147,59 @@ namespace AnimeRx.Dev
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
                 .StopRecording()
                 .SubscribeToPosition(cube);
+        }
+
+        private IEnumerator Sample12()
+        {
+            var hp = new ReactiveProperty<int>(100);
+            var gauge = new ReactiveProperty<float>(100.0f);
+
+            // HPゲージは、実際の値に1.5秒かけて追いつく
+            hp
+                .Select(x => Anime.Play(gauge.Value, x, Easing.EaseOutSine(TimeSpan.FromSeconds(1.5))))
+                .Switch()
+                .Subscribe(x => gauge.Value = x);
+
+            gauge.Subscribe(x =>
+            {
+                // HPゲージの長さにする
+                Debug.LogFormat("hp: {0}", x);
+            });
+
+            yield return new WaitForSeconds(1.0f);
+
+            Debug.Log("ダメージを受けてHPが30に！");
+            hp.Value = 30;
+
+            yield return new WaitForSeconds(1.0f);
+
+            Debug.Log("回復してHPが80に！");
+            hp.Value = 80;
+        }
+
+        private void Sample13()
+        {
+            var hp = new ReactiveProperty<float>(1.0f);
+            var gauge = new ReactiveProperty<float>(1.0f);
+
+            slider1.OnValueChangedAsObservable().Subscribe(x => hp.Value = x);
+
+            hp
+                .Select(x => Anime.Play(gauge.Value, x, Easing.EaseOutCubic(TimeSpan.FromSeconds(1.0))))
+                .Switch()
+                .Subscribe(x => gauge.Value = x);
+
+            gauge.Subscribe(x => { slider2.value = x; });
+
+            Anime.Wait(TimeSpan.FromSeconds(0.0f))
+                .DoOnCompleted(() => slider1.value = 0.3f)
+                .Wait(TimeSpan.FromSeconds(1.0f))
+                .DoOnCompleted(() => slider1.value = 0.8f)
+                .Wait(TimeSpan.FromSeconds(1.0f))
+                .DoOnCompleted(() => slider1.value = 0.0f)
+                .Wait(TimeSpan.FromSeconds(0.5f))
+                .DoOnCompleted(() => slider1.value = 1.0f)
+                .Subscribe();
         }
     }
 
