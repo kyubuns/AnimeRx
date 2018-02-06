@@ -5,7 +5,12 @@ namespace AnimeRx
 {
     public static partial class Motion
     {
-        public static IAnimator Acceleration(float acceleration, float velocityStart = 0.0f)
+        public static IAnimator Acceleration(float acceleration)
+        {
+            return Acceleration(acceleration, 0.0f);
+        }
+
+        public static IAnimator Acceleration(float acceleration, float velocityStart)
         {
             return new AccelerationAnimator(acceleration, velocityStart);
         }
@@ -44,7 +49,7 @@ namespace AnimeRx
 
             public float CalcPosition(float time, float distance)
             {
-                return (velocityStart * time + 0.5f * acceleration * time * time) / distance;
+                return Mathf.Clamp01(velocityStart * time + 0.5f * acceleration * time * time / distance);
             }
         }
     }
