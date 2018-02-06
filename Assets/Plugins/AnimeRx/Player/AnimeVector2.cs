@@ -78,7 +78,7 @@ namespace AnimeRx
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2 to, IAnimator animator, IScheduler scheduler)
         {
-            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+            return self.Select(x => Observable.Return(x).Concat(Play(x, to, animator, scheduler))).Switch();
         }
 
         public static IObservable<Vector2> Play(this IObservable<Vector2> self, Vector2[] path, IAnimator animator)
@@ -93,7 +93,7 @@ namespace AnimeRx
                 var merged = new Vector2[path.Length + 1];
                 merged[0] = x;
                 Array.Copy(path, 0, merged, 1, path.Length);
-                return Play(merged, animator, scheduler);
+                return Observable.Return(x).Concat(Play(merged, animator, scheduler));
             }).Switch();
         }
 
@@ -115,6 +115,16 @@ namespace AnimeRx
         public static IObservable<Vector2> PlayRelative(this IObservable<Vector2> self, Vector2 from, Vector2 relative, IAnimator animator, IScheduler scheduler)
         {
             return self.Concat(Play(from, from + relative, animator, scheduler));
+        }
+
+        public static IObservable<Vector2> PlayRelative(this IObservable<Vector2> self, Vector2 relative, IAnimator animator)
+        {
+            return PlayRelative(self, relative, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector2> PlayRelative(this IObservable<Vector2> self, Vector2 relative, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x => Observable.Return(x).Concat(Play(x, x + relative, animator, scheduler))).Switch();
         }
     }
 }

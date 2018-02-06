@@ -78,7 +78,7 @@ namespace AnimeRx
 
         public static IObservable<Color> Play(this IObservable<Color> self, Color to, IAnimator animator, IScheduler scheduler)
         {
-            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+            return self.Select(x => Observable.Return(x).Concat(Play(x, to, animator, scheduler))).Switch();
         }
 
         public static IObservable<Color> Play(this IObservable<Color> self, Color[] path, IAnimator animator)
@@ -93,7 +93,7 @@ namespace AnimeRx
                 var merged = new Color[path.Length + 1];
                 merged[0] = x;
                 Array.Copy(path, 0, merged, 1, path.Length);
-                return Play(merged, animator, scheduler);
+                return Observable.Return(x).Concat(Play(merged, animator, scheduler));
             }).Switch();
         }
 
@@ -115,6 +115,16 @@ namespace AnimeRx
         public static IObservable<Color> PlayRelative(this IObservable<Color> self, Color from, Color relative, IAnimator animator, IScheduler scheduler)
         {
             return self.Concat(Play(from, from + relative, animator, scheduler));
+        }
+
+        public static IObservable<Color> PlayRelative(this IObservable<Color> self, Color relative, IAnimator animator)
+        {
+            return PlayRelative(self, relative, animator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> PlayRelative(this IObservable<Color> self, Color relative, IAnimator animator, IScheduler scheduler)
+        {
+            return self.Select(x => Observable.Return(x).Concat(Play(x, x + relative, animator, scheduler))).Switch();
         }
     }
 }
