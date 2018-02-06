@@ -17,13 +17,13 @@ namespace AnimeRx
 
         private static IObservable<float> PlayInternal(IAnimator animator, float distance, IScheduler scheduler)
         {
-            return Observable.FromCoroutine<float>((observer, token) =>
+            return Observable.FromMicroCoroutine<float>((observer, token) =>
                 AnimationCoroutine(animator, distance, scheduler, observer, token));
         }
 
         private static IObservable<Unit> DelayInternal(float duration, IScheduler scheduler)
         {
-            return Observable.FromCoroutine<Unit>((observer, token) =>
+            return Observable.FromMicroCoroutine<Unit>((observer, token) =>
                 DelayCoroutine(duration, scheduler, observer, token));
         }
 
