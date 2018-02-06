@@ -6,17 +6,32 @@ namespace AnimeRx
     {
         public static IAnimator EaseInQuart(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseInQuartEasing());
+            return new EasingDurationAnimator(duration, new EaseInQuartEasing());
         }
 
         public static IAnimator EaseOutQuart(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseOutQuartEasing());
+            return new EasingDurationAnimator(duration, new EaseOutQuartEasing());
         }
 
         public static IAnimator EaseInOutQuart(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseInOutQuartEasing());
+            return new EasingDurationAnimator(duration, new EaseInOutQuartEasing());
+        }
+
+        public static IAnimator EaseInQuart(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseInQuartEasing());
+        }
+
+        public static IAnimator EaseOutQuart(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseOutQuartEasing());
+        }
+
+        public static IAnimator EaseInOutQuart(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseInOutQuartEasing());
         }
 
         private class EaseInQuartEasing : IEasing

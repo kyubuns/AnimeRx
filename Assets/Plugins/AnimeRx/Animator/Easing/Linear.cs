@@ -6,7 +6,12 @@ namespace AnimeRx
     {
         public static IAnimator Linear(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new LinearEasing());
+            return new EasingDurationAnimator(duration, new LinearEasing());
+        }
+
+        public static IAnimator Linear(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new LinearEasing());
         }
 
         private class LinearEasing : IEasing

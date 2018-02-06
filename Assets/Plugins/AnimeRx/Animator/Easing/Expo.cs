@@ -7,17 +7,32 @@ namespace AnimeRx
     {
         public static IAnimator EaseInExpo(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseInExpoEasing());
+            return new EasingDurationAnimator(duration, new EaseInExpoEasing());
         }
 
         public static IAnimator EaseOutExpo(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseOutExpoEasing());
+            return new EasingDurationAnimator(duration, new EaseOutExpoEasing());
         }
 
         public static IAnimator EaseInOutExpo(TimeSpan duration)
         {
-            return new EasingAnimator(duration, new EaseInOutExpoEasing());
+            return new EasingDurationAnimator(duration, new EaseInOutExpoEasing());
+        }
+
+        public static IAnimator EaseInExpo(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseInExpoEasing());
+        }
+
+        public static IAnimator EaseOutExpo(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseOutExpoEasing());
+        }
+
+        public static IAnimator EaseInOutExpo(float velocity)
+        {
+            return new EasingVelocityAnimator(velocity, new EaseInOutExpoEasing());
         }
 
         private class EaseInExpoEasing : IEasing
