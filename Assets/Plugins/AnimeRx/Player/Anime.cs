@@ -17,19 +17,10 @@ namespace AnimeRx
 
         private static IObservable<float> PlayInternal(IAnimator animator, float distance, IScheduler scheduler)
         {
-            // Observable.FromMicroCoroutineは次のフレームからコルーチンが再生される（こともある）ため、
-            // 評価された瞬間に開始時刻(scheduler.Now)は取得しておく
-
-            // また、Observable.FromMicroCoroutine(FrameCountType.Update)した瞬間にコルーチンが再生されることもあるため、
-            // 実行結果を一致させるために、一度EndOfFrameを待ってからFrameCountType.Updateに追加する
-            // FrameCountTypeを変えたところで、ストリームで繋いだ次のPlayInternalの呼び出しが同じタイミングになることを防げないため意味がない
-
             return Observable
                 .Defer(() => Observable.Return(scheduler.Now))
                 .ContinueWith(start =>
-                    Observable.EveryEndOfFrame()
-                        .First()
-                        .ContinueWith(_ => Observable.FromMicroCoroutine<float>((observer, token) => AnimationCoroutine(animator, start, distance, scheduler, observer, token)))
+                    Observable.FromMicroCoroutine<float>((observer, token) => AnimationCoroutine(animator, start, distance, scheduler, observer, token))
                 );
         }
 
@@ -38,9 +29,7 @@ namespace AnimeRx
             return Observable
                 .Defer(() => Observable.Return(scheduler.Now))
                 .ContinueWith(start =>
-                    Observable.EveryEndOfFrame()
-                        .First()
-                        .ContinueWith(_ => Observable.FromMicroCoroutine<Unit>((observer, token) => DelayCoroutine(start, duration, scheduler, observer, token)))
+                    Observable.FromMicroCoroutine<Unit>((observer, token) => DelayCoroutine(start, duration, scheduler, observer, token))
                 );
         }
 

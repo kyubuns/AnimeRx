@@ -27,7 +27,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample15();
+            Sample16();
             yield return null;
         }
 
@@ -236,18 +236,23 @@ namespace AnimeRx.Dev
 
         private void Sample16()
         {
-            Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+            Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Do(x => Debug.LogFormat("cube1 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube);
 
-            Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+            Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Do(x => Debug.LogFormat("cube2 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube2);
+
+            Observable.Interval(TimeSpan.FromSeconds(5f))
+                .Subscribe(_ => Sample16());
         }
 
         public void Update()
         {
-            Debug.LogFormat("{0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
+            Debug.LogFormat("update {0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
         }
     }
 
