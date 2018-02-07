@@ -32,9 +32,9 @@ namespace AnimeRx
             private readonly float velocity;
             private readonly IEasing easing;
 
-            public EasingVelocityAnimator(float velocity, IEasing easing)
+            public EasingVelocityAnimator(Velocity velocity, IEasing easing)
             {
-                this.velocity = velocity;
+                this.velocity = (float) velocity.PerSecond;
                 this.easing = easing;
             }
 

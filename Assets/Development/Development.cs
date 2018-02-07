@@ -207,12 +207,12 @@ namespace AnimeRx.Dev
 
         private void Sample14()
         {
-            Anime.PlayRelative(new Vector3(-5f, 0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(2f))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(2f))
+            Anime.PlayRelative(new Vector3(-5f, 0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(Velocity.FromPerSecond(2f)))
                 .SubscribeToPosition(cube);
 
-            Anime.PlayRelative(new Vector3(-5f, -0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(2f))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(2f))
+            Anime.PlayRelative(new Vector3(-5f, -0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(Velocity.FromPerSecond(2f)))
                 .SubscribeToPosition(cube2);
         }
 

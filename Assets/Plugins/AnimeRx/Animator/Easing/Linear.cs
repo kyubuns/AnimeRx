@@ -9,7 +9,7 @@ namespace AnimeRx
             return new EasingDurationAnimator(duration, new LinearEasing());
         }
 
-        public static IAnimator Linear(float velocity)
+        public static IAnimator Linear(Velocity velocity)
         {
             return new EasingVelocityAnimator(velocity, new LinearEasing());
         }

@@ -20,17 +20,17 @@ namespace AnimeRx
             return new EasingDurationAnimator(duration, new EaseInOutElasticEasing());
         }
 
-        public static IAnimator EaseInElastic(float velocity)
+        public static IAnimator EaseInElastic(Velocity velocity)
         {
             return new EasingVelocityAnimator(velocity, new EaseInElasticEasing());
         }
 
-        public static IAnimator EaseOutElastic(float velocity)
+        public static IAnimator EaseOutElastic(Velocity velocity)
         {
             return new EasingVelocityAnimator(velocity, new EaseOutElasticEasing());
         }
 
-        public static IAnimator EaseInOutElastic(float velocity)
+        public static IAnimator EaseInOutElastic(Velocity velocity)
         {
             return new EasingVelocityAnimator(velocity, new EaseInOutElasticEasing());
         }
