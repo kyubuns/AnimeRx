@@ -17,17 +17,18 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(-5f, 0.75f, 0f);
+            cube.transform.position = new Vector3(0f, 3f, 0f);
             cube2.transform.position = new Vector3(-5f, -0.75f, 0f);
 
             // cube.SetActive(false);
-            // cube2.SetActive(false);
+            cube2.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(0.5f);
-            Sample14();
+            // yield return new WaitForSeconds(0.5f);
+            Sample15();
+            yield return null;
         }
 
         private void Sample1()
@@ -213,6 +214,29 @@ namespace AnimeRx.Dev
             Anime.PlayRelative(new Vector3(-5f, -0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(2f))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(2f))
                 .SubscribeToPosition(cube2);
+        }
+
+        private void Sample15()
+        {
+            var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+                .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f));
+
+            var radius = Anime.Play(3f, 0f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
+                .Play(3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)));
+
+            Observable.CombineLatest(
+                    circle,
+                    radius,
+                    Tuple.Create
+                )
+                .Select(x => x.Item1 * x.Item2)
+                .StopRecording()
+                .SubscribeToPosition(cube);
         }
     }
 
