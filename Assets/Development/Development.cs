@@ -243,13 +243,16 @@ namespace AnimeRx.Dev
         {
             Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
-                .Do(x => Debug.LogFormat("cube1 {0} {1}", Time.time, x))
                 .SubscribeToPosition(cube);
 
             Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
-                .Do(x => Debug.LogFormat("cube2 {0} {1}", Time.time, x))
                 .SubscribeToPosition(cube2);
+        }
+
+        public void Update()
+        {
+            Debug.LogFormat("{0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
         }
     }
 
