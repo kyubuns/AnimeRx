@@ -25,7 +25,9 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f)
 
 ![sample2](https://user-images.githubusercontent.com/961165/35796309-7d2bbdf6-0a9f-11e8-8fe1-acef944a36c0.gif)
 
-(-5,0,0)から(5,0,0)へ移動した後、(0,3,0)に等速で移動。
+(-5,0,0)から(5,0,0)へ移動した後、(0,3,0)に等速で移動。  
+この方法を用いた場合、1つ目の移動と2つ目の移動で1フレームの間、値の変化が停止します。  
+スムーズに移動させるには下記のPathの方法を使用してください。
 
 ```csharp
 var animator = Motion.Uniform(5f);

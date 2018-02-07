@@ -27,7 +27,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample16();
+            Sample15();
             yield return null;
         }
 
@@ -218,12 +218,7 @@ namespace AnimeRx.Dev
 
         private void Sample15()
         {
-            var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .Play(0f, Mathf.PI * 2f, Easing.Linear(TimeSpan.FromSeconds(1f)))
+            var circle = Anime.Play(0f, Mathf.PI * 2f * 6f, Easing.Linear(TimeSpan.FromSeconds(6f)))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f));
 
             var radius = Anime.Play(3f, 0f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
