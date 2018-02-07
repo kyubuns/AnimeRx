@@ -21,13 +21,13 @@ namespace AnimeRx.Dev
             cube2.transform.position = new Vector3(-5f, -0.75f, 0f);
 
             // cube.SetActive(false);
-            cube2.SetActive(false);
+            // cube2.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
-            // yield return new WaitForSeconds(0.5f);
-            Sample15();
+            yield return new WaitForSeconds(0.5f);
+            Sample16();
             yield return null;
         }
 
@@ -237,6 +237,19 @@ namespace AnimeRx.Dev
                 .Select(x => x.Item1 * x.Item2)
                 .StopRecording()
                 .SubscribeToPosition(cube);
+        }
+
+        private void Sample16()
+        {
+            Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+                .Do(x => Debug.LogFormat("cube1 {0} {1}", Time.time, x))
+                .SubscribeToPosition(cube);
+
+            Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(0.3f)))
+                .Do(x => Debug.LogFormat("cube2 {0} {1}", Time.time, x))
+                .SubscribeToPosition(cube2);
         }
     }
 
