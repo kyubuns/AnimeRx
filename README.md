@@ -121,6 +121,28 @@ cube.transform.position
     .SubscribeToPosition(cube);
 ```
 
+### Range
+
+![sample17](https://user-images.githubusercontent.com/961165/35954448-0deb1e8e-0ccd-11e8-92ba-1d952a90332e.gif)
+
+途中まで一緒についていく。  
+特定の範囲だけついていく。
+
+```csharp
+var flow = Anime.Play(Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
+    .Wait(TimeSpan.FromSeconds(0.5f))
+    .Play(1.0f, 0.0f, Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)));
+
+flow
+    .Range(0.0f, 0.5f)
+    .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), x))
+    .SubscribeToPosition(cube2);
+
+flow
+    .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, -1f, 0f), new Vector3(5f, -1f, 0f), x))
+    .SubscribeToPosition(cube);
+```
+
 ### Advanced - Circle
 
 ![sample8](https://user-images.githubusercontent.com/961165/35796318-7dedcb62-0a9f-11e8-907c-e0ee65298b17.gif)
