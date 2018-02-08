@@ -121,7 +121,7 @@ cube.transform.position
     .SubscribeToPosition(cube);
 ```
 
-### Range
+### Range / Lerp
 
 ![sample17](https://user-images.githubusercontent.com/961165/35954448-0deb1e8e-0ccd-11e8-92ba-1d952a90332e.gif)
 
@@ -135,11 +135,11 @@ var flow = Anime.Play(Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
 
 flow
     .Range(0.0f, 0.5f)
-    .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), x))
+    .Lerp(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f))
     .SubscribeToPosition(cube2);
 
 flow
-    .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, -1f, 0f), new Vector3(5f, -1f, 0f), x))
+    .Lerp(new Vector3(-5f, -1f, 0f), new Vector3(5f, -1f, 0f))
     .SubscribeToPosition(cube);
 ```
 

@@ -126,5 +126,10 @@ namespace AnimeRx
         {
             return self.Select(x => Observable.Return(x).Concat(Play(x, x + relative, animator, scheduler))).Switch();
         }
+
+        public static IObservable<Vector2> Lerp(this IObservable<float> self, Vector2 from, Vector2 to)
+        {
+            return self.Select(x => Vector2.LerpUnclamped(from, to, x));
+        }
     }
 }

@@ -254,16 +254,15 @@ namespace AnimeRx.Dev
         {
             var flow = Anime.Play(Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
                 .Wait(TimeSpan.FromSeconds(0.5f))
-                .Play(1.0f, 0.0f, Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
-                .StopRecordingSoon();
+                .Play(1.0f, 0.0f, Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)));
 
             flow
-                .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), x))
+                .Lerp(new Vector3(-5f, 0f, 0f), new Vector3(5f,0f, 0f))
                 .SubscribeToPosition(cube);
 
             flow
                 .Range(0.0f, 0.5f)
-                .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, -1f, 0f), new Vector3(0f, -1f, 0f), x))
+                .Lerp(new Vector3(-5f, -1f, 0f), new Vector3(0f, -1f, 0f))
                 .SubscribeToPosition(cube2);
         }
 
