@@ -15,6 +15,16 @@ namespace AnimeRx
             set { defaultScheduler = value; }
         }
 
+        public static IObservable<float> Play(IAnimator animator)
+        {
+            return Play(animator, DefaultScheduler);
+        }
+
+        public static IObservable<float> Play(IAnimator animator, IScheduler scheduler)
+        {
+            return PlayInternal(animator, 1.0f, scheduler);
+        }
+
         private static IObservable<float> PlayInternal(IAnimator animator, float distance, IScheduler scheduler)
         {
             return Observable
