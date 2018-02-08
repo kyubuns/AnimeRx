@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Threading;
 using UniRx;
+using UnityEngine;
 
 namespace AnimeRx
 {
@@ -23,6 +24,11 @@ namespace AnimeRx
         public static IObservable<float> Play(IAnimator animator, IScheduler scheduler)
         {
             return PlayInternal(animator, 1.0f, scheduler);
+        }
+
+        public static IObservable<float> Range(this IObservable<float> source, float min, float max)
+        {
+            return source.Select(x => Mathf.Clamp(x - min, 0.0f, max) / (max - min));
         }
 
         private static IObservable<float> PlayInternal(IAnimator animator, float distance, IScheduler scheduler)

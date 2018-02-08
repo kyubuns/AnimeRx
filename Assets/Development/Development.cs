@@ -17,8 +17,8 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(0f, 3f, 0f);
-            cube2.transform.position = new Vector3(-5f, -0.75f, 0f);
+            cube.transform.position = new Vector3(-5f, 0f, 0f);
+            cube2.transform.position = new Vector3(-5f, -1f, 0f);
 
             // cube.SetActive(false);
             // cube2.SetActive(false);
@@ -27,7 +27,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample16();
+            Sample17();
             yield return null;
         }
 
@@ -250,6 +250,23 @@ namespace AnimeRx.Dev
                 .Subscribe(_ => Sample16());
         }
 
+        private void Sample17()
+        {
+            var flow = Anime.Play(Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
+                .Wait(TimeSpan.FromSeconds(0.5f))
+                .Play(1.0f, 0.0f, Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)))
+                .StopRecordingSoon();
+
+            flow
+                .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), x))
+                .SubscribeToPosition(cube);
+
+            flow
+                .Range(0.0f, 0.5f)
+                .Select(x => Vector3.LerpUnclamped(new Vector3(-5f, -1f, 0f), new Vector3(0f, -1f, 0f), x))
+                .SubscribeToPosition(cube2);
+        }
+
         public void Update()
         {
             Debug.LogFormat("update {0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
@@ -263,6 +280,14 @@ namespace AnimeRx.Dev
             return source.DoOnCompleted(() =>
             {
                 Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(x => EditorApplication.isPlaying = false);
+            });
+        }
+
+        public static IObservable<T> StopRecordingSoon<T>(this IObservable<T> source)
+        {
+            return source.DoOnCompleted(() =>
+            {
+                EditorApplication.isPlaying = false;
             });
         }
     }
