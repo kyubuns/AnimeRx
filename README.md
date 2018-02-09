@@ -143,6 +143,29 @@ flow
     .SubscribeToPosition(cube);
 ```
 
+### Delay
+
+![sample18](https://user-images.githubusercontent.com/961165/36021790-3d5a335a-0dca-11e8-9481-7376cd25a4c0.gif)
+
+Observable.Delay in UniRx
+
+```csharp
+var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
+    .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
+    .Select(x => x * 3f);
+
+circle
+    .SubscribeToPosition(cube);
+
+circle
+    .Delay(TimeSpan.FromSeconds(0.3f))
+    .SubscribeToPosition(cube2);
+
+circle
+    .Delay(TimeSpan.FromSeconds(0.55f))
+    .SubscribeToPosition(cube3);
+```
+
 ### Advanced - Circle
 
 ![sample8](https://user-images.githubusercontent.com/961165/35796318-7dedcb62-0a9f-11e8-907c-e0ee65298b17.gif)

@@ -11,23 +11,26 @@ namespace AnimeRx.Dev
     {
         [SerializeField] private GameObject cube;
         [SerializeField] private GameObject cube2;
+        [SerializeField] private GameObject cube3;
         [SerializeField] private AnimationCurve curve;
         [SerializeField] private Slider slider1;
         [SerializeField] private Slider slider2;
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(-5f, 0f, 0f);
-            cube2.transform.position = new Vector3(-5f, -1f, 0f);
+            cube.transform.position = new Vector3(0f, 3f, 0f);
+            cube2.transform.position = new Vector3(0f, 3f, 0f);
+            cube3.transform.position = new Vector3(0f, 3f, 0f);
 
             // cube.SetActive(false);
             // cube2.SetActive(false);
+            // cube3.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample17();
+            Sample18();
             yield return null;
         }
 
@@ -207,11 +210,13 @@ namespace AnimeRx.Dev
 
         private void Sample14()
         {
-            Anime.PlayRelative(new Vector3(-5f, 0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
+            Anime.PlayRelative(new Vector3(-5f, 0.75f, 0f), new Vector3(5f, 0f, 0f),
+                    Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(Velocity.FromPerSecond(2f)))
                 .SubscribeToPosition(cube);
 
-            Anime.PlayRelative(new Vector3(-5f, -0.75f, 0f), new Vector3(5f, 0f, 0f), Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
+            Anime.PlayRelative(new Vector3(-5f, -0.75f, 0f), new Vector3(5f, 0f, 0f),
+                    Easing.EaseInCubic(Velocity.FromPerSecond(2f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.EaseOutCubic(Velocity.FromPerSecond(2f)))
                 .SubscribeToPosition(cube2);
         }
@@ -236,12 +241,14 @@ namespace AnimeRx.Dev
 
         private void Sample16()
         {
-            Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+            Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f),
+                    Easing.Linear(TimeSpan.FromSeconds(1f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
                 .Do(x => Debug.LogFormat("cube1 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube);
 
-            Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+            Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f),
+                    Easing.Linear(TimeSpan.FromSeconds(1f)))
                 .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
                 .Do(x => Debug.LogFormat("cube2 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube2);
@@ -257,13 +264,32 @@ namespace AnimeRx.Dev
                 .Play(1.0f, 0.0f, Easing.EaseInOutExpo(TimeSpan.FromSeconds(2.5f)));
 
             flow
-                .Lerp(new Vector3(-5f, 0f, 0f), new Vector3(5f,0f, 0f))
+                .Lerp(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f))
                 .SubscribeToPosition(cube);
 
             flow
                 .Range(0.0f, 0.5f)
                 .Lerp(new Vector3(-5f, -1f, 0f), new Vector3(0f, -1f, 0f))
                 .SubscribeToPosition(cube2);
+        }
+
+        private void Sample18()
+        {
+            var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
+                .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
+                .Select(x => x * 3f);
+
+            circle
+                .SubscribeToPosition(cube);
+
+            circle
+                .Delay(TimeSpan.FromSeconds(0.3f))
+                .SubscribeToPosition(cube2);
+
+            circle
+                .Delay(TimeSpan.FromSeconds(0.55f))
+                .StopRecordingSoon()
+                .SubscribeToPosition(cube3);
         }
 
         public void Update()
