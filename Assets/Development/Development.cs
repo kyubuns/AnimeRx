@@ -275,7 +275,8 @@ namespace AnimeRx.Dev
 
         private void Sample18()
         {
-            var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
+            var circle = Anime
+                .Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(1f)))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
                 .Select(x => x * 3f);
 
@@ -288,8 +289,27 @@ namespace AnimeRx.Dev
 
             circle
                 .Delay(TimeSpan.FromSeconds(0.55f))
-                .StopRecordingSoon()
                 .SubscribeToPosition(cube3);
+        }
+
+        private void Sample19()
+        {
+            Anime.Play(new Vector3(0f, 0f, 0f), new Vector3(3f, 0f, 0f), new Sample19Animator())
+                .PlayRelative(new Vector3(0f, 3f, 0f), Easing.Linear(TimeSpan.FromSeconds(1.0f)))
+                .SubscribeToPosition(cube);
+        }
+
+        public class Sample19Animator : IAnimator
+        {
+            public float CalcFinishTime(float distance)
+            {
+                return 3.0f;
+            }
+
+            public float CalcPosition(float time, float distance)
+            {
+                return 0.0f;
+            }
         }
 
         public void Update()
