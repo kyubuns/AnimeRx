@@ -13,6 +13,7 @@ namespace AnimeRx.Dev
         [SerializeField] private GameObject cube;
         [SerializeField] private GameObject cube2;
         [SerializeField] private GameObject cube3;
+        [SerializeField] private GameObject sphere;
         [SerializeField] private AnimationCurve curve;
         [SerializeField] private Slider slider1;
         [SerializeField] private Slider slider2;
@@ -23,15 +24,16 @@ namespace AnimeRx.Dev
             cube2.transform.position = new Vector3(0f, 3f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
-            // cube.SetActive(false);
+            cube.SetActive(false);
             cube2.SetActive(false);
             cube3.SetActive(false);
+            // circle.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(0.5f);
-            Sample20();
+            // yield return new WaitForSeconds(0.5f);
+            Sample21();
             yield return null;
         }
 
@@ -327,6 +329,19 @@ namespace AnimeRx.Dev
                 .Select(x => x[0] + x[1])
                 .StopRecording()
                 .SubscribeToPosition(cube);
+        }
+
+        public void Sample21()
+        {
+            var x = Anime.Play(1.0f, 0.5f, Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
+                .Play(1.0f, Easing.EaseOutElastic(TimeSpan.FromSeconds(0.8f)));
+
+            var y = Anime.Play(1.0f, 1.2f, Easing.EaseInOutSine(TimeSpan.FromSeconds(1f)))
+                .Play(1.0f, Easing.EaseOutElastic(TimeSpan.FromSeconds(0.8f)));
+
+            Observable.CombineLatest(x, y)
+                .Select(s => new Vector3(s[0], s[1], 1f))
+                .SubscribeToLocalScale(sphere);
         }
 
         public void Update()
