@@ -179,7 +179,7 @@ Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
     .SubscribeToPosition(cube);
 ```
 
-### Add
+### Blend
 
 ![sample20](https://user-images.githubusercontent.com/961165/36059327-d082cd18-0e79-11e8-9292-c8f035ba4e00.gif)
 
