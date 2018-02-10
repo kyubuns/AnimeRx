@@ -4,37 +4,37 @@ namespace AnimeRx
 {
     public static partial class Easing
     {
-        public static IAnimator EaseInBounce(TimeSpan duration)
+        public static IAnimator InBounce(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseInBounceEasing());
+            return new EasingDurationAnimator(duration, new InBounceEasing());
         }
 
-        public static IAnimator EaseOutBounce(TimeSpan duration)
+        public static IAnimator OutBounce(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseOutBounceEasing());
+            return new EasingDurationAnimator(duration, new OutBounceEasing());
         }
 
-        public static IAnimator EaseInOutBounce(TimeSpan duration)
+        public static IAnimator InOutBounce(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseInOutBounceEasing());
+            return new EasingDurationAnimator(duration, new InOutBounceEasing());
         }
 
-        public static IAnimator EaseInBounce(Velocity velocity)
+        public static IAnimator InBounce(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseInBounceEasing());
+            return new EasingVelocityAnimator(velocity, new InBounceEasing());
         }
 
-        public static IAnimator EaseOutBounce(Velocity velocity)
+        public static IAnimator OutBounce(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseOutBounceEasing());
+            return new EasingVelocityAnimator(velocity, new OutBounceEasing());
         }
 
-        public static IAnimator EaseInOutBounce(Velocity velocity)
+        public static IAnimator InOutBounce(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseInOutBounceEasing());
+            return new EasingVelocityAnimator(velocity, new InOutBounceEasing());
         }
 
-        private class EaseInBounceEasing : IEasing
+        private class InBounceEasing : IEasing
         {
             public float Function(float v)
             {
@@ -43,11 +43,11 @@ namespace AnimeRx
 
             public static float Bounce(float v)
             {
-                return 1 - EaseOutBounceEasing.Bounce(1 - v);
+                return 1 - OutBounceEasing.Bounce(1 - v);
             }
         }
 
-        private class EaseOutBounceEasing : IEasing
+        private class OutBounceEasing : IEasing
         {
             public float Function(float v)
             {
@@ -75,17 +75,17 @@ namespace AnimeRx
             }
         }
 
-        private class EaseInOutBounceEasing : IEasing
+        private class InOutBounceEasing : IEasing
         {
             public float Function(float v)
             {
                 if (v < 0.5f)
                 {
-                    return 0.5f * EaseInBounceEasing.Bounce(v * 2f);
+                    return 0.5f * InBounceEasing.Bounce(v * 2f);
                 }
                 else
                 {
-                    return 0.5f * EaseOutBounceEasing.Bounce(v * 2f - 1f) + 0.5f;
+                    return 0.5f * OutBounceEasing.Bounce(v * 2f - 1f) + 0.5f;
                 }
             }
         }

@@ -4,37 +4,37 @@ namespace AnimeRx
 {
     public static partial class Easing
     {
-        public static IAnimator EaseInCubic(TimeSpan duration)
+        public static IAnimator InCubic(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseInCubicEasing());
+            return new EasingDurationAnimator(duration, new InCubicEasing());
         }
 
-        public static IAnimator EaseOutCubic(TimeSpan duration)
+        public static IAnimator OutCubic(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseOutCubicEasing());
+            return new EasingDurationAnimator(duration, new OutCubicEasing());
         }
 
-        public static IAnimator EaseInOutCubic(TimeSpan duration)
+        public static IAnimator InOutCubic(TimeSpan duration)
         {
-            return new EasingDurationAnimator(duration, new EaseInOutCubicEasing());
+            return new EasingDurationAnimator(duration, new InOutCubicEasing());
         }
 
-        public static IAnimator EaseInCubic(Velocity velocity)
+        public static IAnimator InCubic(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseInCubicEasing());
+            return new EasingVelocityAnimator(velocity, new InCubicEasing());
         }
 
-        public static IAnimator EaseOutCubic(Velocity velocity)
+        public static IAnimator OutCubic(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseOutCubicEasing());
+            return new EasingVelocityAnimator(velocity, new OutCubicEasing());
         }
 
-        public static IAnimator EaseInOutCubic(Velocity velocity)
+        public static IAnimator InOutCubic(Velocity velocity)
         {
-            return new EasingVelocityAnimator(velocity, new EaseInOutCubicEasing());
+            return new EasingVelocityAnimator(velocity, new InOutCubicEasing());
         }
 
-        private class EaseInCubicEasing : IEasing
+        private class InCubicEasing : IEasing
         {
             public float Function(float v)
             {
@@ -42,7 +42,7 @@ namespace AnimeRx
             }
         }
 
-        private class EaseOutCubicEasing : IEasing
+        private class OutCubicEasing : IEasing
         {
             public float Function(float v)
             {
@@ -51,7 +51,7 @@ namespace AnimeRx
             }
         }
 
-        private class EaseInOutCubicEasing : IEasing
+        private class InOutCubicEasing : IEasing
         {
             public float Function(float v)
             {
