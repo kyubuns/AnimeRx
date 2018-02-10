@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
@@ -18,19 +19,19 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(0f, 3f, 0f);
+            cube.transform.position = new Vector3(0f, -4f, 0f);
             cube2.transform.position = new Vector3(0f, 3f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
             // cube.SetActive(false);
-            // cube2.SetActive(false);
-            // cube3.SetActive(false);
+            cube2.SetActive(false);
+            cube3.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample18();
+            Sample20();
             yield return null;
         }
 
@@ -310,6 +311,22 @@ namespace AnimeRx.Dev
             {
                 return 0.0f;
             }
+        }
+
+        public void Sample20()
+        {
+            var circle = Anime
+                .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
+                .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0f));
+
+            var straight = Anime
+                .Play(-3f, 3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
+                .Select(x => new Vector3(0f, x, 0f));
+
+            Observable.CombineLatest(circle, straight)
+                .Select(x => x[0] + x[1])
+                .StopRecording()
+                .SubscribeToPosition(cube);
         }
 
         public void Update()

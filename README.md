@@ -166,7 +166,7 @@ circle
     .SubscribeToPosition(cube3);
 ```
 
-### Advanced - Circle
+### Circle
 
 ![sample8](https://user-images.githubusercontent.com/961165/35796318-7dedcb62-0a9f-11e8-907c-e0ee65298b17.gif)
 
@@ -179,7 +179,27 @@ Anime.Play(0f, Mathf.PI * 2f, Easing.EaseOutCubic(TimeSpan.FromSeconds(3f)))
     .SubscribeToPosition(cube);
 ```
 
-### Advanced - WhenAll
+### Add
+
+![sample20](https://user-images.githubusercontent.com/961165/36059327-d082cd18-0e79-11e8-9292-c8f035ba4e00.gif)
+
+2つの移動を足し合わせる。
+
+```csharp
+var circle = Anime
+    .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
+    .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0f));
+
+var straight = Anime
+    .Play(-3f, 3f, Easing.EaseInOutSine(TimeSpan.FromSeconds(3f)))
+    .Select(x => new Vector3(0f, x, 0f));
+
+Observable.CombineLatest(circle, straight)
+    .Select(x => x[0] + x[1])
+    .SubscribeToPosition(cube);
+```
+
+### WhenAll
 
 ![sample9](https://user-images.githubusercontent.com/961165/35796319-7e1568d4-0a9f-11e8-8e08-28ff53093e8c.gif)
 
