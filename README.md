@@ -158,7 +158,7 @@ flow
 
 ### PlayIn/PlayOut/PlayInOut
 
-![sample24](https://user-images.githubusercontent.com/961165/36069030-483ac77e-0f25-11e8-8cac-ad007f8a7cd8.gif)
+![sample24](https://user-images.githubusercontent.com/961165/36070628-70652970-0f42-11e8-980b-5d2b26d28847.gif)
 
 Animationから等速運動に繋げる。
 
