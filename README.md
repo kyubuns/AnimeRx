@@ -121,6 +121,19 @@ cube.transform.position
     .SubscribeToPosition(cube);
 ```
 
+### Circle
+
+![sample8](https://user-images.githubusercontent.com/961165/35796318-7dedcb62-0a9f-11e8-907c-e0ee65298b17.gif)
+
+IObservble<float>を円運動に変換。
+
+```csharp
+Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
+    .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
+    .Select(x => x * 3f)
+    .SubscribeToPosition(cube);
+```
+
 ### Range / Lerp
 
 ![sample17](https://user-images.githubusercontent.com/961165/35954448-0deb1e8e-0ccd-11e8-92ba-1d952a90332e.gif)
@@ -141,6 +154,17 @@ flow
 flow
     .Lerp(new Vector3(-5f, -1f, 0f), new Vector3(5f, -1f, 0f))
     .SubscribeToPosition(cube);
+```
+
+### PlayIn/PlayOut/PlayInOut
+
+![sample24](https://user-images.githubusercontent.com/961165/36069030-483ac77e-0f25-11e8-8cac-ad007f8a7cd8.gif)
+
+Animationから等速運動に繋げる。
+
+```csharp
+Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
+    .SubscribeToPositionX(cube);
 ```
 
 ### Delay
@@ -164,19 +188,6 @@ circle
 circle
     .Delay(TimeSpan.FromSeconds(0.55f))
     .SubscribeToPosition(cube3);
-```
-
-### Circle
-
-![sample8](https://user-images.githubusercontent.com/961165/35796318-7dedcb62-0a9f-11e8-907c-e0ee65298b17.gif)
-
-IObservble<float>を円運動に変換。
-
-```csharp
-Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
-    .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
-    .Select(x => x * 3f)
-    .SubscribeToPosition(cube);
 ```
 
 ### Blend

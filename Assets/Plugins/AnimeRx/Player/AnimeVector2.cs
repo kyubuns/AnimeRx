@@ -18,6 +18,43 @@ namespace AnimeRx
                 .Select(x => Vector2.LerpUnclamped(from, to, x));
         }
 
+        public static IObservable<Vector2> PlayIn(Vector2 from, Vector2 inEnd, Vector2 to, IAnimator inAnimator)
+        {
+            return PlayIn(from, inEnd, to, inAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector2> PlayIn(Vector2 from, Vector2 inEnd, Vector2 to, IAnimator inAnimator, IScheduler scheduler)
+        {
+            var velocity = inAnimator.CalcFinishVelocity(Vector2.Distance(inEnd, from));
+            return Play(from, inEnd, inAnimator, scheduler)
+                .Play(to, Easing.Linear(velocity), scheduler);
+        }
+
+        public static IObservable<Vector2> PlayOut(Vector2 from, Vector2 outStart, Vector2 to, IAnimator outAnimator)
+        {
+            return PlayOut(from, outStart, to, outAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector2> PlayOut(Vector2 from, Vector2 outStart, Vector2 to, IAnimator outAnimator, IScheduler scheduler)
+        {
+            var velocity = outAnimator.CalcStartVelocity(Vector2.Distance(to, outStart));
+            return Play(from, outStart, Easing.Linear(velocity), scheduler)
+                .Play(to, outAnimator);
+        }
+
+        public static IObservable<Vector2> PlayInOut(Vector2 from, Vector2 inEnd, Vector2 outStart, Vector2 to, IAnimator inAnimator, IAnimator outAnimator)
+        {
+            return PlayInOut(from, inEnd, outStart, to, inAnimator, outAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Vector2> PlayInOut(Vector2 from, Vector2 inEnd, Vector2 outStart, Vector2 to, IAnimator inAnimator, IAnimator outAnimator, IScheduler scheduler)
+        {
+            var inVelocity = inAnimator.CalcFinishVelocity(Vector2.Distance(inEnd, from));
+            return Play(from, inEnd, inAnimator, scheduler)
+                .Play(outStart, Easing.Linear(inVelocity), scheduler)
+                .Play(to, outAnimator, scheduler);
+        }
+
         public static IObservable<Vector2> Play(Vector2[] path, IAnimator animator)
         {
             return Play(path, animator, DefaultScheduler);

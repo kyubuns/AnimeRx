@@ -18,6 +18,43 @@ namespace AnimeRx
                 .Select(x => Color.LerpUnclamped(from, to, x));
         }
 
+        public static IObservable<Color> PlayIn(Color from, Color inEnd, Color to, IAnimator inAnimator)
+        {
+            return PlayIn(from, inEnd, to, inAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> PlayIn(Color from, Color inEnd, Color to, IAnimator inAnimator, IScheduler scheduler)
+        {
+            var velocity = inAnimator.CalcFinishVelocity(Vector4.Distance(inEnd, from));
+            return Play(from, inEnd, inAnimator, scheduler)
+                .Play(to, Easing.Linear(velocity), scheduler);
+        }
+
+        public static IObservable<Color> PlayOut(Color from, Color outStart, Color to, IAnimator outAnimator)
+        {
+            return PlayOut(from, outStart, to, outAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> PlayOut(Color from, Color outStart, Color to, IAnimator outAnimator, IScheduler scheduler)
+        {
+            var velocity = outAnimator.CalcStartVelocity(Vector4.Distance(to, outStart));
+            return Play(from, outStart, Easing.Linear(velocity), scheduler)
+                .Play(to, outAnimator);
+        }
+
+        public static IObservable<Color> PlayInOut(Color from, Color inEnd, Color outStart, Color to, IAnimator inAnimator, IAnimator outAnimator)
+        {
+            return PlayInOut(from, inEnd, outStart, to, inAnimator, outAnimator, DefaultScheduler);
+        }
+
+        public static IObservable<Color> PlayInOut(Color from, Color inEnd, Color outStart, Color to, IAnimator inAnimator, IAnimator outAnimator, IScheduler scheduler)
+        {
+            var inVelocity = inAnimator.CalcFinishVelocity(Vector4.Distance(inEnd, from));
+            return Play(from, inEnd, inAnimator, scheduler)
+                .Play(outStart, Easing.Linear(inVelocity), scheduler)
+                .Play(to, outAnimator, scheduler);
+        }
+
         public static IObservable<Color> Play(Color[] path, IAnimator animator)
         {
             return Play(path, animator, DefaultScheduler);

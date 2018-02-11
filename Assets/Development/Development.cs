@@ -362,15 +362,7 @@ namespace AnimeRx.Dev
 
         public void Sample24()
         {
-            var path = new[] {-5f, -2.5f, 2.5f, 5f};
-
-            var startAnimator = Easing.InCubic(TimeSpan.FromSeconds(0.5));
-            var finishAnimator = Easing.OutCubic(TimeSpan.FromSeconds(0.5));
-            var velocity = startAnimator.CalcFinishVelocity(Mathf.Abs(path[1] - path[0]));
-
-            Anime.Play(path[0], path[1], startAnimator)
-                .Play(path[2], Easing.Linear(velocity))
-                .Play(path[3], finishAnimator)
+            Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
                 .StopRecording()
                 .SubscribeToPositionX(cube);
         }
