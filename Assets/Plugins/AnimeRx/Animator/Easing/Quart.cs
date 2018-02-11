@@ -47,7 +47,7 @@ namespace AnimeRx
             public float Function(float v)
             {
                 var f = (v - 1f);
-                return f * f * f * f + 1f;
+                return f * f * f * (1f - v) + 1f;
             }
         }
 
