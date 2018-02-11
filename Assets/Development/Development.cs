@@ -369,8 +369,9 @@ namespace AnimeRx.Dev
 
         public void Sample25()
         {
-            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)), Easing.OutCubic(TimeSpan.FromSeconds(3.0)))
-                .StopRecording()
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InBack(TimeSpan.FromSeconds(2.0)), Easing.OutBack(TimeSpan.FromSeconds(2.0)))
+                .Loop()
+                // .StopRecording()
                 .DoOnCompleted(() => Debug.Log("Complete"))
                 .SubscribeToPositionX(cube);
         }

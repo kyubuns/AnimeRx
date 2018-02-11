@@ -8,6 +8,8 @@ namespace AnimeRx
     public static partial class Anime
     {
         private static IScheduler defaultScheduler = new TimeScheduler();
+        public const double TimeDelta = 0.00001;
+        private const double EqualDelta = 0.02;
 
         public static IScheduler DefaultScheduler
         {

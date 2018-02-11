@@ -63,9 +63,9 @@ namespace AnimeRx
             var outVelocity = outAnimator.CalcStartVelocity(Vector3.Distance(to, outStart)).PerSecond;
             IAnimator linearAnimator;
 
-            if (Math.Abs(inVelocity - outVelocity) < 0.000001)
+            if (Math.Abs(inVelocity - outVelocity) < EqualDelta)
             {
-                linearAnimator = Motion.Uniform((float) inVelocity);
+                linearAnimator = Motion.Uniform((float) ((inVelocity + outVelocity) / 2.0));
             }
             else
             {
