@@ -65,3 +65,4 @@ sed -i '' 's/Vector4/Vector2/g' Extension/Vector2Extensions.cs
 cp Extension/Vector4Extensions.cs Extension/Vector1Extensions.cs
 sed -i '' 's/Vector4/float/g' Extension/Vector1Extensions.cs
 sed -i '' 's/floatExtensions/Vector1Extensions/g' Extension/Vector1Extensions.cs
+sed -i '' 's/new float()/0.0f/g' Extension/Vector1Extensions.cs

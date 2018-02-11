@@ -210,7 +210,7 @@ var straight = Anime
     .Select(x => new Vector3(0f, x, 0f));
 
 Observable.CombineLatest(circle, straight)
-    .Select(x => x[0] + x[1])
+    .Sum()
     .SubscribeToPosition(cube);
 ```
 

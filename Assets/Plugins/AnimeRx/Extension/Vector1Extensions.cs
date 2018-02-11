@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -40,6 +42,14 @@ namespace AnimeRx
         public static IObservable<float> PlayRelative(this float source, float relative, IAnimator animator, IScheduler scheduler)
         {
             return Anime.PlayRelative(source, relative, animator, scheduler);
+        }
+
+        public static IObservable<float> Sum(this IObservable<IList<float>> source)
+        {
+            return source.Select(x =>
+            {
+                return x.Aggregate(0.0f, (current, xx) => current + xx);
+            });
         }
     }
 }

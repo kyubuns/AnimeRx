@@ -35,7 +35,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample25();
+            Sample20();
             yield return null;
         }
 
@@ -328,7 +328,7 @@ namespace AnimeRx.Dev
                 .Select(x => new Vector3(0f, x, 0f));
 
             Observable.CombineLatest(circle, straight)
-                .Select(x => x[0] + x[1])
+                .Sum()
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
