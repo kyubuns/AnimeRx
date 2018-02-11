@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnimeRx
 {
@@ -13,21 +12,6 @@ namespace AnimeRx
         public static IAnimator Acceleration(float acceleration, float velocityStart)
         {
             return new AccelerationAnimator(acceleration, velocityStart);
-        }
-
-        public static IAnimator InAcceleration(float acceleration, float velocityStart, float velocityFinish)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static IAnimator OutAcceleration(float acceleration, float velocityStart, float velocityFinish)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static IAnimator InOutAcceleration(float acceleration, float velocityStart, float velocityMax, float velocityFinish)
-        {
-            throw new NotImplementedException();
         }
 
         private class AccelerationAnimator : IAnimator
