@@ -69,7 +69,8 @@ namespace AnimeRx
             }
             else
             {
-                throw new NotImplementedException("NotImplemented PlayInOut inVelocity != outVelocity");
+                var accel = (outVelocity * outVelocity - inVelocity * inVelocity) / (2.0f * Mathf.Abs(outStart - inEnd));
+                linearAnimator = Motion.Acceleration((float) accel, (float) inVelocity);
             }
 
             var compositeAnimator = new CompositeAnimator(new[]

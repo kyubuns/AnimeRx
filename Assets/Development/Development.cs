@@ -35,7 +35,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample20();
+            Sample26();
             yield return null;
         }
 
@@ -377,6 +377,13 @@ namespace AnimeRx.Dev
             Anime.PlayInOut(-5f, -2f, 0f, 3f, Easing.InCubic(TimeSpan.FromSeconds(1.5)), Easing.OutCubic(TimeSpan.FromSeconds(1.5)))
                 .DoOnCompleted(() => Debug.LogFormat("{0} Complete", Time.time))
                 .SubscribeToPositionX(cube2);
+        }
+
+        public void Sample26()
+        {
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)), Easing.OutCubic(TimeSpan.FromSeconds(5.0)))
+                .StopRecording()
+                .SubscribeToPositionX(cube);
         }
 
         public void Update()
