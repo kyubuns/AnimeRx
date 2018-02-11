@@ -21,12 +21,12 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(-5f, 0f, 0f);
-            cube2.transform.position = new Vector3(0f, 3f, 0f);
+            cube.transform.position = new Vector3(-5f, -1f, 0f);
+            cube2.transform.position = new Vector3(-5f, 1f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
             // cube.SetActive(false);
-            cube2.SetActive(false);
+            // cube2.SetActive(false);
             cube3.SetActive(false);
             sphere.SetActive(false);
             sphere2.SetActive(false);
@@ -369,11 +369,14 @@ namespace AnimeRx.Dev
 
         public void Sample25()
         {
-            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InBack(TimeSpan.FromSeconds(2.0)), Easing.OutBack(TimeSpan.FromSeconds(2.0)))
-                .Loop()
-                // .StopRecording()
-                .DoOnCompleted(() => Debug.Log("Complete"))
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.5)), Easing.OutCubic(TimeSpan.FromSeconds(1.5)))
+                .StopRecording()
+                .DoOnCompleted(() => Debug.LogFormat("{0} Complete", Time.time))
                 .SubscribeToPositionX(cube);
+
+            Anime.PlayInOut(-5f, -2f, 0f, 3f, Easing.InCubic(TimeSpan.FromSeconds(1.5)), Easing.OutCubic(TimeSpan.FromSeconds(1.5)))
+                .DoOnCompleted(() => Debug.LogFormat("{0} Complete", Time.time))
+                .SubscribeToPositionX(cube2);
         }
 
         public void Update()
