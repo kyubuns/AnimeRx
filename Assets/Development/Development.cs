@@ -21,13 +21,13 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(0f, 3f, 0f);
+            cube.transform.position = new Vector3(0f, 0f, 0f);
             cube2.transform.position = new Vector3(0f, 3f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
             // cube.SetActive(false);
-            // cube2.SetActive(false);
-            // cube3.SetActive(false);
+            cube2.SetActive(false);
+            cube3.SetActive(false);
             sphere.SetActive(false);
             sphere2.SetActive(false);
 
@@ -35,7 +35,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample18();
+            Sample24();
             yield return null;
         }
 
@@ -350,6 +350,36 @@ namespace AnimeRx.Dev
         {
             Anime.Play(7.5f, 3f, Easing.OutElastic(TimeSpan.FromSeconds(1f)))
                 .SubscribeToPositionY(sphere2);
+        }
+
+        public void Sample23()
+        {
+            /*
+            Anime.Shake(new Vector3(3f, 3f, 0f), Shaker.Simple(TimeSpan.FromSeconds(1f)))ssss
+                .SubscribeToPosition(sphere2);
+            */
+        }
+
+        public void Sample24()
+        {
+            var from = -5f;
+            var to = 0f;
+
+            var distance = Mathf.Abs(from - to);
+            var delta = 0.00001f;
+            var animator = Easing.InCubic(TimeSpan.FromSeconds(1f));
+            var finishTime = animator.CalcFinishTime(distance);
+            var pos1 = animator.CalcPosition(finishTime - delta, distance);
+            var pos2 = animator.CalcPosition(finishTime, distance);
+            var velocity = Velocity.FromPerSecond((pos2 - pos1) * distance / delta);
+            Debug.Log(pos1);
+            Debug.Log(pos2);
+            Debug.Log(velocity.PerSecond);
+
+            Anime.Play(from, to, animator)
+                .Play(5f, Easing.Linear(velocity))
+                .Loop()
+                .SubscribeToPositionX(cube);
         }
 
         public void Update()
