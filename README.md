@@ -1,12 +1,16 @@
-# AnimeRx
+# AnimeRx - Rx Tween Animation Library for Unity
 
-Unity + Rx Tween Animation Library
+Created by kyubuns
 
 - ```IObservable<T> Anime.Play(T from, T to, IAnimator animator)```
 
-## UnityPackage
+## Installation
 
-- https://github.com/kyubuns/AnimeRx/releases
+Requires Unity 2017.1 or later (5.6でも多分動くけど未確認)  
+Support .net3.5 and .net4.6
+
+- Import UniRx ([AssetStore](https://assetstore.unity.com/packages/tools/unirx-reactive-extensions-for-unity-17276) or [GitHub](https://github.com/neuecc/UniRx))
+- Import AnimeRx (https://github.com/kyubuns/AnimeRx/releases)
 
 ## Examples
 
