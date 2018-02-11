@@ -14,26 +14,28 @@ namespace AnimeRx.Dev
         [SerializeField] private GameObject cube2;
         [SerializeField] private GameObject cube3;
         [SerializeField] private GameObject sphere;
+        [SerializeField] private GameObject sphere2;
         [SerializeField] private AnimationCurve curve;
         [SerializeField] private Slider slider1;
         [SerializeField] private Slider slider2;
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(0f, -4f, 0f);
+            cube.transform.position = new Vector3(0f, 3f, 0f);
             cube2.transform.position = new Vector3(0f, 3f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
-            cube.SetActive(false);
-            cube2.SetActive(false);
-            cube3.SetActive(false);
-            // circle.SetActive(false);
+            // cube.SetActive(false);
+            // cube2.SetActive(false);
+            // cube3.SetActive(false);
+            sphere.SetActive(false);
+            sphere2.SetActive(false);
 
             slider1.gameObject.SetActive(false);
             slider2.gameObject.SetActive(false);
 
-            // yield return new WaitForSeconds(0.5f);
-            Sample21();
+            yield return new WaitForSeconds(0.5f);
+            Sample18();
             yield return null;
         }
 
@@ -279,7 +281,7 @@ namespace AnimeRx.Dev
         private void Sample18()
         {
             var circle = Anime
-                .Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+                .Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
                 .Select(x => x * 3f);
 
@@ -344,9 +346,15 @@ namespace AnimeRx.Dev
                 .SubscribeToLocalScale(sphere);
         }
 
+        public void Sample22()
+        {
+            Anime.Play(7.5f, 3f, Easing.OutElastic(TimeSpan.FromSeconds(1f)))
+                .SubscribeToPositionY(sphere2);
+        }
+
         public void Update()
         {
-            Debug.LogFormat("update {0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
+            // Debug.LogFormat("update {0} {1} {2}", Time.time, cube.transform.position.x, cube2.transform.position.x);
         }
     }
 
