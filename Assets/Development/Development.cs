@@ -21,7 +21,7 @@ namespace AnimeRx.Dev
 
         public IEnumerator Start()
         {
-            cube.transform.position = new Vector3(0f, 0f, 0f);
+            cube.transform.position = new Vector3(-5f, 0f, 0f);
             cube2.transform.position = new Vector3(0f, 3f, 0f);
             cube3.transform.position = new Vector3(0f, 3f, 0f);
 
@@ -367,7 +367,7 @@ namespace AnimeRx.Dev
 
             var distance = Mathf.Abs(from - to);
             var delta = 0.00001f;
-            var animator = Easing.InCubic(TimeSpan.FromSeconds(1f));
+            var animator = Easing.InQuart(TimeSpan.FromSeconds(1f));
             var finishTime = animator.CalcFinishTime(distance);
             var pos1 = animator.CalcPosition(finishTime - delta, distance);
             var pos2 = animator.CalcPosition(finishTime, distance);
@@ -378,7 +378,7 @@ namespace AnimeRx.Dev
 
             Anime.Play(from, to, animator)
                 .Play(5f, Easing.Linear(velocity))
-                .Loop()
+                .StopRecording()
                 .SubscribeToPositionX(cube);
         }
 
