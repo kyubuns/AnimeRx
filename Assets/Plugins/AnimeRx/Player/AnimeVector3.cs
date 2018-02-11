@@ -142,7 +142,7 @@ namespace AnimeRx
 
         public static IObservable<Vector3> Play(this IObservable<Vector3> self, Vector3 to, IAnimator animator, IScheduler scheduler)
         {
-            return self.Select(x => Observable.Return(x).Concat(Play(x, to, animator, scheduler))).Switch();
+            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
         }
 
         public static IObservable<Vector3> Play(this IObservable<Vector3> self, Vector3[] path, IAnimator animator)
@@ -188,7 +188,7 @@ namespace AnimeRx
 
         public static IObservable<Vector3> PlayRelative(this IObservable<Vector3> self, Vector3 relative, IAnimator animator, IScheduler scheduler)
         {
-            return self.Select(x => Observable.Return(x).Concat(Play(x, x + relative, animator, scheduler))).Switch();
+            return self.Select(x => Play(x, x + relative, animator, scheduler)).Switch();
         }
 
         public static IObservable<Vector3> Lerp(this IObservable<float> self, Vector3 from, Vector3 to)

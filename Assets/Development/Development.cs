@@ -35,8 +35,15 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample26();
+            BugCheck();
             yield return null;
+        }
+
+        private void BugCheck()
+        {
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f))
+                .PlayRelative(new Vector3(0f, 3f, 0f), Motion.Uniform(4f))
+                .SubscribeToPosition(cube);
         }
 
         private void Sample1()

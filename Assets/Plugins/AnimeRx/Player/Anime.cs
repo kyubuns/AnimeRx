@@ -32,7 +32,7 @@ namespace AnimeRx
             return Observable
                 .Defer(() => Observable.Return(scheduler.Now))
                 .ContinueWith(start =>
-                    Observable.FromMicroCoroutine<float>((observer, token) => AnimationCoroutine(animator, start, distance, scheduler, observer, token))
+                    RxExtensions.FromMicroCoroutineWithInitialValue((observer, token) => AnimationCoroutine(animator, start, distance, scheduler, observer, token), animator.CalcPosition(scheduler.Now - start, distance))
                 );
         }
 
@@ -41,7 +41,7 @@ namespace AnimeRx
             return Observable
                 .Defer(() => Observable.Return(scheduler.Now))
                 .ContinueWith(start =>
-                    Observable.FromMicroCoroutine<Unit>((observer, token) => DelayCoroutine(start, duration, scheduler, observer, token))
+                    RxExtensions.FromMicroCoroutineWithInitialValue<Unit>((observer, token) => DelayCoroutine(start, duration, scheduler, observer, token), Unit.Default)
                 );
         }
 
