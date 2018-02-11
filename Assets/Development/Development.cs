@@ -362,8 +362,14 @@ namespace AnimeRx.Dev
 
         public void Sample24()
         {
-            Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)), Easing.OutCubic(TimeSpan.FromSeconds(1.0)))
                 .StopRecording()
+                .SubscribeToPositionX(cube);
+        }
+
+        public void Sample25()
+        {
+            Anime.Play(-5f, 5f, Motion.Acceleration(1f, 3f))
                 .SubscribeToPositionX(cube);
         }
 

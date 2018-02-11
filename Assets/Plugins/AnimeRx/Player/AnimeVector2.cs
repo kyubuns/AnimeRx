@@ -26,8 +26,13 @@ namespace AnimeRx
         public static IObservable<Vector2> PlayIn(Vector2 from, Vector2 inEnd, Vector2 to, IAnimator inAnimator, IScheduler scheduler)
         {
             var velocity = inAnimator.CalcFinishVelocity(Vector2.Distance(inEnd, from));
-            return Play(from, inEnd, inAnimator, scheduler)
-                .Play(to, Easing.Linear(velocity), scheduler);
+            var linearAnimator = Easing.Linear(velocity);
+            var compositeAnimator = new CompositeAnimator(new[]
+            {
+                Tuple.Create(inAnimator, Vector2.Distance(inEnd, from)),
+                Tuple.Create(linearAnimator, Vector2.Distance(to, inEnd)),
+            });
+            return Play(new[] {from, inEnd, to}, compositeAnimator, scheduler);
         }
 
         public static IObservable<Vector2> PlayOut(Vector2 from, Vector2 outStart, Vector2 to, IAnimator outAnimator)
@@ -38,8 +43,13 @@ namespace AnimeRx
         public static IObservable<Vector2> PlayOut(Vector2 from, Vector2 outStart, Vector2 to, IAnimator outAnimator, IScheduler scheduler)
         {
             var velocity = outAnimator.CalcStartVelocity(Vector2.Distance(to, outStart));
-            return Play(from, outStart, Easing.Linear(velocity), scheduler)
-                .Play(to, outAnimator);
+            var linearAnimator = Easing.Linear(velocity);
+            var compositeAnimator = new CompositeAnimator(new[]
+            {
+                Tuple.Create(linearAnimator, Vector2.Distance(outStart, from)),
+                Tuple.Create(outAnimator, Vector2.Distance(to, outStart)),
+            });
+            return Play(new[] {from, outStart, to}, compositeAnimator, scheduler);
         }
 
         public static IObservable<Vector2> PlayInOut(Vector2 from, Vector2 inEnd, Vector2 outStart, Vector2 to, IAnimator inAnimator, IAnimator outAnimator)
@@ -50,9 +60,14 @@ namespace AnimeRx
         public static IObservable<Vector2> PlayInOut(Vector2 from, Vector2 inEnd, Vector2 outStart, Vector2 to, IAnimator inAnimator, IAnimator outAnimator, IScheduler scheduler)
         {
             var inVelocity = inAnimator.CalcFinishVelocity(Vector2.Distance(inEnd, from));
-            return Play(from, inEnd, inAnimator, scheduler)
-                .Play(outStart, Easing.Linear(inVelocity), scheduler)
-                .Play(to, outAnimator, scheduler);
+            var linearAnimator = Easing.Linear(inVelocity);
+            var compositeAnimator = new CompositeAnimator(new[]
+            {
+                Tuple.Create(inAnimator, Vector2.Distance(inEnd, from)),
+                Tuple.Create(linearAnimator, Vector2.Distance(outStart, inEnd)),
+                Tuple.Create(outAnimator, Vector2.Distance(to, outStart)),
+            });
+            return Play(new[] {from, inEnd, outStart, to}, compositeAnimator, scheduler);
         }
 
         public static IObservable<Vector2> Play(Vector2[] path, IAnimator animator)
