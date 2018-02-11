@@ -362,22 +362,15 @@ namespace AnimeRx.Dev
 
         public void Sample24()
         {
-            var from = -5f;
-            var to = 0f;
+            var path = new[] {-5f, -2.5f, 2.5f, 5f};
 
-            var distance = Mathf.Abs(from - to);
-            var delta = 0.00001f;
-            var animator = Easing.InQuart(TimeSpan.FromSeconds(1f));
-            var finishTime = animator.CalcFinishTime(distance);
-            var pos1 = animator.CalcPosition(finishTime - delta, distance);
-            var pos2 = animator.CalcPosition(finishTime, distance);
-            var velocity = Velocity.FromPerSecond((pos2 - pos1) * distance / delta);
-            Debug.Log(pos1);
-            Debug.Log(pos2);
-            Debug.Log(velocity.PerSecond);
+            var startAnimator = Easing.InCubic(TimeSpan.FromSeconds(0.5));
+            var finishAnimator = Easing.OutCubic(TimeSpan.FromSeconds(0.5));
+            var velocity = startAnimator.CalcFinishVelocity(Mathf.Abs(path[1] - path[0]));
 
-            Anime.Play(from, to, animator)
-                .Play(5f, Easing.Linear(velocity))
+            Anime.Play(path[0], path[1], startAnimator)
+                .Play(path[2], Easing.Linear(velocity))
+                .Play(path[3], finishAnimator)
                 .StopRecording()
                 .SubscribeToPositionX(cube);
         }
