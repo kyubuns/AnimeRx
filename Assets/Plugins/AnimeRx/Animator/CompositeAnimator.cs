@@ -35,7 +35,7 @@ namespace AnimeRx
         {
             var i = 0;
             var calcedDistance = 0.0f;
-            for (; i < animators.Length; ++i)
+            for (; i < animators.Length - 1; ++i)
             {
                 if (times[i] < time)
                 {

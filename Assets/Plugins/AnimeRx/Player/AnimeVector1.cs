@@ -59,8 +59,19 @@ namespace AnimeRx
 
         public static IObservable<float> PlayInOut(float from, float inEnd, float outStart, float to, IAnimator inAnimator, IAnimator outAnimator, IScheduler scheduler)
         {
-            var inVelocity = inAnimator.CalcFinishVelocity(Mathf.Abs(inEnd - from));
-            var linearAnimator = Easing.Linear(inVelocity);
+            var inVelocity = inAnimator.CalcFinishVelocity(Mathf.Abs(inEnd - from)).PerSecond;
+            var outVelocity = outAnimator.CalcStartVelocity(Mathf.Abs(to - outStart)).PerSecond;
+            IAnimator linearAnimator;
+
+            if (Math.Abs(inVelocity - outVelocity) < 0.000001)
+            {
+                linearAnimator = Motion.Uniform((float) inVelocity);
+            }
+            else
+            {
+                throw new NotImplementedException("NotImplemented PlayInOut inVelocity != outVelocity");
+            }
+
             var compositeAnimator = new CompositeAnimator(new[]
             {
                 Tuple.Create(inAnimator, Mathf.Abs(inEnd - from)),
