@@ -33,7 +33,7 @@ namespace AnimeRx
 
             public float CalcPosition(float time, float distance)
             {
-                return Mathf.Clamp01(velocityStart * time + 0.5f * acceleration * time * time / distance);
+                return Mathf.Clamp01((velocityStart * time + 0.5f * acceleration * time * time) / distance);
             }
         }
     }
