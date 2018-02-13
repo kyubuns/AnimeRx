@@ -8,6 +8,15 @@ namespace AnimeRx.Development
     {
         private CompositeDisposable animatingDisposable = new CompositeDisposable();
 
+        public static readonly string[] Samples = {
+            "1: Linear",
+            "2: Easing",
+            "3: Wait",
+            "4: Combine",
+            "5: Path",
+            "6: Easing to Linear",
+        };
+
         public void Initialize()
         {
             animatingDisposable.Dispose();
@@ -27,7 +36,7 @@ namespace AnimeRx.Development
         {
             var cube1 = CreatePrimitiveCube();
 
-            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(TimeSpan.FromSeconds(3f)))
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.InOutQuad(TimeSpan.FromSeconds(3f)))
                 .SubscribeToPosition(cube1)
                 .AddTo(cube1);
         }
@@ -56,6 +65,33 @@ namespace AnimeRx.Development
 
             Observable.CombineLatest(x, y, z)
                 .SubscribeToPosition(cube1)
+                .AddTo(cube1);
+        }
+
+        public void Sample5()
+        {
+            var cube1 = CreatePrimitiveCube();
+
+            var positions = new[]
+            {
+                new Vector3(-5f, 0f, 0f),
+                new Vector3(0f, 3f, 0f),
+                new Vector3(5f, 0f, 0f),
+                new Vector3(0f, -3f, 0f),
+                new Vector3(-5f, 0f, 0f),
+            };
+
+            Anime.Play(positions, Easing.InOutSine(TimeSpan.FromSeconds(6f)))
+                .SubscribeToPosition(cube1)
+                .AddTo(cube1);
+        }
+
+        public void Sample6()
+        {
+            var cube1 = CreatePrimitiveCube();
+
+            Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
+                .SubscribeToPositionX(cube1)
                 .AddTo(cube1);
         }
 

@@ -782,15 +782,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Sample1
-      m_Image: {fileID: 0}
-    - m_Text: Sample2
-      m_Image: {fileID: 0}
-    - m_Text: Sample3
-      m_Image: {fileID: 0}
-    - m_Text: Sample4
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1051,7 +1043,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sample1
+  m_Text: 
 --- !u!222 &1415921009
 CanvasRenderer:
   m_ObjectHideFlags: 0

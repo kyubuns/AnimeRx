@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Linq;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +13,13 @@ namespace AnimeRx.Development
 
         public void Start()
         {
+            dropdown.options = Examples.Samples.Select(x => new Dropdown.OptionData(x)).ToList();
             playButton.OnClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    var select = dropdown.options[dropdown.value].text;
+                    var select = dropdown.options[dropdown.value].text.Split(':')[0];
                     examples.Initialize();
-                    examples.gameObject.SendMessage(select);
+                    examples.gameObject.SendMessage("Sample" + select);
                 })
                 .AddTo(this);
         }
