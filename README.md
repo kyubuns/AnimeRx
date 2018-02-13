@@ -22,7 +22,8 @@ Support .net3.5 and .net4.6
 
 ```csharp
 Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f))
-    .SubscribeToPosition(cube);
+    .Subscribe(x => cube.transform.position = x);
+    //.SubscribeToPosition(cube);
 ```
 
 ### Method Chain
