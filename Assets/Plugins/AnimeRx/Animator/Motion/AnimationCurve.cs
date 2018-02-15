@@ -7,7 +7,7 @@ namespace AnimeRx
     {
         public static IAnimator From(AnimationCurve curve, float velocity = 1.0f)
         {
-            return new AnimationCurveAnimator(curve, velocity);
+            return new AnimationCurveVelocityAnimator(curve, velocity);
         }
 
         public static IAnimator From(AnimationCurve curve, TimeSpan duration)
@@ -15,12 +15,12 @@ namespace AnimeRx
             return new AnimationCurveTimeAnimator(curve, duration);
         }
 
-        private class AnimationCurveAnimator : IAnimator
+        private class AnimationCurveVelocityAnimator : IAnimator
         {
             private readonly AnimationCurve curve;
             private readonly float velocity;
 
-            public AnimationCurveAnimator(AnimationCurve curve, float velocity)
+            public AnimationCurveVelocityAnimator(AnimationCurve curve, float velocity)
             {
                 this.curve = curve;
                 this.velocity = velocity;
