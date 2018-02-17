@@ -15,6 +15,7 @@ namespace AnimeRx.Development
             "4: Combine",
             "5: Path",
             "6: Easing to Linear",
+            "7: Random",
         };
 
         public void Initialize()
@@ -90,8 +91,21 @@ namespace AnimeRx.Development
         {
             var cube1 = CreatePrimitiveCube();
 
-            Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
+            Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1f)))
                 .SubscribeToPositionX(cube1)
+                .AddTo(cube1);
+        }
+
+        public void Sample7()
+        {
+            var cube1 = CreatePrimitiveCube();
+
+            Observable.CombineLatest(
+                    Anime.Play(0, 0.5f, Motion.Random(TimeSpan.FromSeconds(2f), -1f, 1f)),
+                    Anime.Play(0, 0.5f, Motion.Random(TimeSpan.FromSeconds(2f), -1f, 1f)),
+                    Anime.Stay(0f)
+                )
+                .SubscribeToPosition(cube1)
                 .AddTo(cube1);
         }
 
