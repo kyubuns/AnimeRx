@@ -85,9 +85,11 @@ namespace AnimeRx
                     break;
                 }
 
+                observer.OnNext(Unit.Default);
                 yield return null;
             }
 
+            observer.OnNext(Unit.Default);
             observer.OnCompleted();
         }
     }
