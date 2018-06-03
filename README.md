@@ -52,7 +52,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(Tim
     .SubscribeToPosition(cube);
 ```
 
-### Wait
+### Stop
 
 ![sample10](https://user-images.githubusercontent.com/961165/35796321-7e3ff25c-0a9f-11e8-956a-d85aa2a30e48.gif)
 
@@ -60,7 +60,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(Tim
 
 ```csharp
 Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-    .Wait(TimeSpan.FromSeconds(1f))
+    .Stop(TimeSpan.FromSeconds(1f))
     .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
     .SubscribeToPosition(cube);
 ```
@@ -148,7 +148,7 @@ Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
 
 ```csharp
 var flow = Anime.Play(Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)))
-    .Wait(TimeSpan.FromSeconds(0.5f))
+    .Stop(TimeSpan.FromSeconds(0.5f))
     .Play(1.0f, 0.0f, Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)));
 
 flow

@@ -154,7 +154,7 @@ namespace AnimeRx.Dev
         private void Sample10()
         {
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-                .Wait(TimeSpan.FromSeconds(1f))
+                .Stop(TimeSpan.FromSeconds(1f))
                 .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
                 .StopRecording()
                 .SubscribeToPosition(cube);
@@ -209,13 +209,13 @@ namespace AnimeRx.Dev
 
             gauge.Subscribe(x => { slider2.value = x; });
 
-            Anime.Wait(TimeSpan.FromSeconds(0.0f))
+            Anime.Stop(TimeSpan.FromSeconds(0.0f))
                 .DoOnCompleted(() => slider1.value = 0.3f)
-                .Wait(TimeSpan.FromSeconds(1.0f))
+                .Stop(TimeSpan.FromSeconds(1.0f))
                 .DoOnCompleted(() => slider1.value = 0.8f)
-                .Wait(TimeSpan.FromSeconds(1.0f))
+                .Stop(TimeSpan.FromSeconds(1.0f))
                 .DoOnCompleted(() => slider1.value = 0.0f)
-                .Wait(TimeSpan.FromSeconds(0.5f))
+                .Stop(TimeSpan.FromSeconds(0.5f))
                 .DoOnCompleted(() => slider1.value = 1.0f)
                 .Subscribe();
         }
@@ -272,7 +272,7 @@ namespace AnimeRx.Dev
         private void Sample17()
         {
             var flow = Anime.Play(Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)))
-                .Wait(TimeSpan.FromSeconds(0.5f))
+                .Stop(TimeSpan.FromSeconds(0.5f))
                 .Play(1.0f, 0.0f, Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)));
 
             flow

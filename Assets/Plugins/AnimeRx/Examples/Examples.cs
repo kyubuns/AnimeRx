@@ -47,7 +47,7 @@ namespace AnimeRx.Development
             var cube1 = CreatePrimitiveCube();
 
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-                .Wait(TimeSpan.FromSeconds(0.5f))
+                .Stop(TimeSpan.FromSeconds(0.5f))
                 .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
                 .SubscribeToPosition(cube1)
                 .AddTo(cube1);
