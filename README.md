@@ -2,6 +2,8 @@
 
 Created by kyubuns
 
+Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
+
 - ```IObservable<T> Anime.Play(T from, T to, IAnimator animator)```
 
 ## Installation
