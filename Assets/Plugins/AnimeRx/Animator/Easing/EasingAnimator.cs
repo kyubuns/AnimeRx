@@ -12,7 +12,7 @@ namespace AnimeRx
 
             public EasingDurationAnimator(TimeSpan duration, IEasing easing)
             {
-                this.duration = (float) duration.TotalSeconds;
+                this.duration = Mathf.Max((float) duration.TotalSeconds, Mathf.Epsilon);
                 this.easing = easing;
             }
 
