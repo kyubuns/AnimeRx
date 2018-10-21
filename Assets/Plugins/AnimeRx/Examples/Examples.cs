@@ -11,7 +11,7 @@ namespace AnimeRx.Development
         public static readonly string[] Samples = {
             "1: Linear",
             "2: Easing",
-            "3: Wait",
+            "3: Sleep",
             "4: Combine",
             "5: Path",
             "6: Easing to Linear",
@@ -47,7 +47,7 @@ namespace AnimeRx.Development
             var cube1 = CreatePrimitiveCube();
 
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-                .Stop(TimeSpan.FromSeconds(0.5f))
+                .Sleep(TimeSpan.FromSeconds(0.5f))
                 .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
                 .SubscribeToPosition(cube1)
                 .AddTo(cube1);

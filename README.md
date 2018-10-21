@@ -54,7 +54,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(Tim
     .SubscribeToPosition(cube);
 ```
 
-### Stop
+### Sleep
 
 ![sample10](https://user-images.githubusercontent.com/961165/35796321-7e3ff25c-0a9f-11e8-956a-d85aa2a30e48.gif)
 
@@ -62,7 +62,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(Tim
 
 ```csharp
 Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-    .Stop(TimeSpan.FromSeconds(1f))
+    .Sleep(TimeSpan.FromSeconds(1f))
     .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
     .SubscribeToPosition(cube);
 ```
