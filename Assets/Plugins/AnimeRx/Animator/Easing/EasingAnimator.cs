@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnimeRx
 {
@@ -10,9 +9,9 @@ namespace AnimeRx
             private readonly float duration;
             private readonly IEasing easing;
 
-            public EasingDurationAnimator(TimeSpan duration, IEasing easing)
+            public EasingDurationAnimator(float duration, IEasing easing)
             {
-                this.duration = Mathf.Max((float) duration.TotalSeconds, Mathf.Epsilon);
+                this.duration = Mathf.Max(duration, Mathf.Epsilon);
                 this.easing = easing;
             }
 

@@ -36,7 +36,7 @@ namespace AnimeRx
                 );
         }
 
-        private static IObservable<Unit> DelayInternal(float duration, IScheduler scheduler)
+        private static IObservable<Unit> SleepInternal(float duration, IScheduler scheduler)
         {
             return Observable
                 .Defer(() => Observable.Return(scheduler.Now))

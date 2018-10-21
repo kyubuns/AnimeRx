@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
@@ -64,7 +63,7 @@ namespace AnimeRx.Dev
 
         private void Sample3()
         {
-            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(TimeSpan.FromSeconds(2f)))
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(2f))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
@@ -80,17 +79,17 @@ namespace AnimeRx.Dev
                 new Vector3(-5f, 0f, 0f),
             };
 
-            Anime.Play(positions, Easing.InOutSine(TimeSpan.FromSeconds(6f)))
+            Anime.Play(positions, Easing.InOutSine(6f))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
 
         private void Sample5()
         {
-            var x = Anime.Play(-5f, 5f, Easing.InOutSine(TimeSpan.FromSeconds(3f)));
+            var x = Anime.Play(-5f, 5f, Easing.InOutSine(3f));
 
-            var y = Anime.Play(0f, 3f, Easing.InOutSine(TimeSpan.FromSeconds(1.5f)))
-                .Play(0f, Easing.InOutSine(TimeSpan.FromSeconds(1.5f)));
+            var y = Anime.Play(0f, 3f, Easing.InOutSine(1.5f))
+                .Play(0f, Easing.InOutSine(1.5f));
 
             var z = Anime.Stay(0f);
 
@@ -102,7 +101,7 @@ namespace AnimeRx.Dev
         private void Sample6()
         {
             cube.transform.position
-                .Play(new Vector3(3f, 3f, 0f), Easing.OutBack(TimeSpan.FromSeconds(2f)))
+                .Play(new Vector3(3f, 3f, 0f), Easing.OutBack(2f))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
@@ -110,15 +109,15 @@ namespace AnimeRx.Dev
         private void Sample7()
         {
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f),
-                    Easing.InOutSine(TimeSpan.FromSeconds(1f)))
-                .Play(new Vector3(-5f, 0f, 0f), Easing.InOutSine(TimeSpan.FromSeconds(1f)))
+                    Easing.InOutSine(1f))
+                .Play(new Vector3(-5f, 0f, 0f), Easing.InOutSine(1f))
                 .Repeat()
                 .SubscribeToPosition(cube);
         }
 
         private void Sample8()
         {
-            Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
+            Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(3f))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
                 .Select(x => x * 3f)
                 .StopRecording()
@@ -128,21 +127,21 @@ namespace AnimeRx.Dev
         private void Sample9()
         {
             var leftCube1 = Anime
-                .Play(new Vector3(-5f, 0f, 0f), new Vector3(-0.5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2.5f)))
+                .Play(new Vector3(-5f, 0f, 0f), new Vector3(-0.5f, 0f, 0f), Easing.Linear(2.5f))
                 .DoToPosition(cube);
 
             var rightCube1 = Anime
-                .Play(new Vector3(5f, 0f, 0f), new Vector3(0.5f, 0f, 0f), Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+                .Play(new Vector3(5f, 0f, 0f), new Vector3(0.5f, 0f, 0f), Easing.OutCubic(1f))
                 .DoToPosition(cube2);
 
             var leftCube2 = Anime
                 .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f),
-                    Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+                    Easing.OutCubic(1f))
                 .DoToPosition(cube);
 
             var rightCube2 = Anime
                 .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f),
-                    Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+                    Easing.OutCubic(1f))
                 .DoToPosition(cube2);
 
             Observable.WhenAll(leftCube1, rightCube1)
@@ -153,16 +152,16 @@ namespace AnimeRx.Dev
 
         private void Sample10()
         {
-            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-                .Sleep(TimeSpan.FromSeconds(1f))
-                .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(2f))
+                .Sleep(1f)
+                .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(2f))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
 
         private void Sample11()
         {
-            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
+            Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, 3f))
                 .StopRecording()
                 .SubscribeToPosition(cube);
         }
@@ -174,7 +173,7 @@ namespace AnimeRx.Dev
 
             // HPゲージは、実際の値に1.5秒かけて追いつく
             hp
-                .Select(x => Anime.Play(gauge.Value, x, Easing.OutSine(TimeSpan.FromSeconds(1.5))))
+                .Select(x => Anime.Play(gauge.Value, x, Easing.OutSine(1.5f)))
                 .Switch()
                 .Subscribe(x => gauge.Value = x);
 
@@ -203,19 +202,19 @@ namespace AnimeRx.Dev
             slider1.OnValueChangedAsObservable().Subscribe(x => hp.Value = x);
 
             hp
-                .Select(x => Anime.Play(gauge.Value, x, Easing.OutCubic(TimeSpan.FromSeconds(1.0))))
+                .Select(x => Anime.Play(gauge.Value, x, Easing.OutCubic(1f)))
                 .Switch()
                 .Subscribe(x => gauge.Value = x);
 
             gauge.Subscribe(x => { slider2.value = x; });
 
-            Anime.Sleep(TimeSpan.FromSeconds(0.0f))
+            Anime.Sleep(0f)
                 .DoOnCompleted(() => slider1.value = 0.3f)
-                .Sleep(TimeSpan.FromSeconds(1.0f))
+                .Sleep(1f)
                 .DoOnCompleted(() => slider1.value = 0.8f)
-                .Sleep(TimeSpan.FromSeconds(1.0f))
+                .Sleep(1f)
                 .DoOnCompleted(() => slider1.value = 0.0f)
-                .Sleep(TimeSpan.FromSeconds(0.5f))
+                .Sleep(0.5f)
                 .DoOnCompleted(() => slider1.value = 1.0f)
                 .Subscribe();
         }
@@ -235,11 +234,11 @@ namespace AnimeRx.Dev
 
         private void Sample15()
         {
-            var circle = Anime.Play(0f, Mathf.PI * 2f * 6f, Easing.Linear(TimeSpan.FromSeconds(6f)))
+            var circle = Anime.Play(0f, Mathf.PI * 2f * 6f, Easing.Linear(6f))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f));
 
-            var radius = Anime.Play(3f, 0f, Easing.InOutSine(TimeSpan.FromSeconds(3f)))
-                .Play(3f, Easing.InOutSine(TimeSpan.FromSeconds(3f)));
+            var radius = Anime.Play(3f, 0f, Easing.InOutSine(3f))
+                .Play(3f, Easing.InOutSine(3f));
 
             Observable.CombineLatest(
                     circle,
@@ -254,14 +253,14 @@ namespace AnimeRx.Dev
         private void Sample16()
         {
             Anime.PlayRelative(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f),
-                    Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                    Easing.Linear(1f))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(1f))
                 .Do(x => Debug.LogFormat("cube1 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube);
 
             Anime.PlayRelative(new Vector3(-5f, -1f, 0f), new Vector3(5f, 0f, 0f),
-                    Easing.Linear(TimeSpan.FromSeconds(1f)))
-                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(1f)))
+                    Easing.Linear(1f))
+                .PlayRelative(new Vector3(5f, 0f, 0f), Easing.Linear(1f))
                 .Do(x => Debug.LogFormat("cube2 {0} {1}", Time.time, x.x))
                 .SubscribeToPosition(cube2);
 
@@ -271,9 +270,9 @@ namespace AnimeRx.Dev
 
         private void Sample17()
         {
-            var flow = Anime.Play(Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)))
-                .Sleep(TimeSpan.FromSeconds(0.5f))
-                .Play(1.0f, 0.0f, Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)));
+            var flow = Anime.Play(Easing.InOutExpo(2.5f))
+                .Sleep(0.5f)
+                .Play(1.0f, 0.0f, Easing.InOutExpo(2.5f));
 
             flow
                 .Lerp(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f))
@@ -288,7 +287,7 @@ namespace AnimeRx.Dev
         private void Sample18()
         {
             var circle = Anime
-                .Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
+                .Play(0f, Mathf.PI * 2f, Easing.OutCubic(3f))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
                 .Select(x => x * 3f);
 
@@ -307,7 +306,7 @@ namespace AnimeRx.Dev
         private void Sample19()
         {
             Anime.Play(new Vector3(0f, 0f, 0f), new Vector3(3f, 0f, 0f), new Sample19Animator())
-                .PlayRelative(new Vector3(0f, 3f, 0f), Easing.Linear(TimeSpan.FromSeconds(1.0f)))
+                .PlayRelative(new Vector3(0f, 3f, 0f), Easing.Linear(1f))
                 .SubscribeToPosition(cube);
         }
 
@@ -327,11 +326,11 @@ namespace AnimeRx.Dev
         public void Sample20()
         {
             var circle = Anime
-                .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.InOutSine(TimeSpan.FromSeconds(3f)))
+                .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.InOutSine(3f))
                 .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0f));
 
             var straight = Anime
-                .Play(-3f, 3f, Easing.InOutSine(TimeSpan.FromSeconds(3f)))
+                .Play(-3f, 3f, Easing.InOutSine(3f))
                 .Select(x => new Vector3(0f, x, 0f));
 
             Observable.CombineLatest(circle, straight)
@@ -342,11 +341,11 @@ namespace AnimeRx.Dev
 
         public void Sample21()
         {
-            var x = Anime.Play(1.0f, 0.5f, Easing.InOutSine(TimeSpan.FromSeconds(1f)))
-                .Play(1.0f, Easing.OutElastic(TimeSpan.FromSeconds(0.8f)));
+            var x = Anime.Play(1.0f, 0.5f, Easing.InOutSine(1f))
+                .Play(1.0f, Easing.OutElastic(0.8f));
 
-            var y = Anime.Play(1.0f, 1.2f, Easing.InOutSine(TimeSpan.FromSeconds(1f)))
-                .Play(1.0f, Easing.OutElastic(TimeSpan.FromSeconds(0.8f)));
+            var y = Anime.Play(1.0f, 1.2f, Easing.InOutSine(1f))
+                .Play(1.0f, Easing.OutElastic(0.8f));
 
             Observable.CombineLatest(x, y)
                 .Select(s => new Vector3(s[0], s[1], 1f))
@@ -355,40 +354,40 @@ namespace AnimeRx.Dev
 
         public void Sample22()
         {
-            Anime.Play(7.5f, 3f, Easing.OutElastic(TimeSpan.FromSeconds(1f)))
+            Anime.Play(7.5f, 3f, Easing.OutElastic(1f))
                 .SubscribeToPositionY(sphere2);
         }
 
         public void Sample23()
         {
             /*
-            Anime.Shake(new Vector3(3f, 3f, 0f), Shaker.Simple(TimeSpan.FromSeconds(1f)))ssss
+            Anime.Shake(new Vector3(3f, 3f, 0f), Shaker.Simple(1f))ssss
                 .SubscribeToPosition(sphere2);
             */
         }
 
         public void Sample24()
         {
-            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)), Easing.OutCubic(TimeSpan.FromSeconds(1.0)))
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(1f), Easing.OutCubic(1f))
                 .StopRecording()
                 .SubscribeToPositionX(cube);
         }
 
         public void Sample25()
         {
-            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.5)), Easing.OutCubic(TimeSpan.FromSeconds(1.5)))
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(1.5f), Easing.OutCubic(1.5f))
                 .StopRecording()
                 .DoOnCompleted(() => Debug.LogFormat("{0} Complete", Time.time))
                 .SubscribeToPositionX(cube);
 
-            Anime.PlayInOut(-5f, -2f, 0f, 3f, Easing.InCubic(TimeSpan.FromSeconds(1.5)), Easing.OutCubic(TimeSpan.FromSeconds(1.5)))
+            Anime.PlayInOut(-5f, -2f, 0f, 3f, Easing.InCubic(1.5f), Easing.OutCubic(1.5f))
                 .DoOnCompleted(() => Debug.LogFormat("{0} Complete", Time.time))
                 .SubscribeToPositionX(cube2);
         }
 
         public void Sample26()
         {
-            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)), Easing.OutCubic(TimeSpan.FromSeconds(5.0)))
+            Anime.PlayInOut(-5f, -2f, 2f, 5f, Easing.InCubic(1f), Easing.OutCubic(5f))
                 .StopRecording()
                 .SubscribeToPositionX(cube);
         }

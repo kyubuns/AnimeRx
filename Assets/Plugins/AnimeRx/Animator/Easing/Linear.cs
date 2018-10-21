@@ -4,7 +4,7 @@ namespace AnimeRx
 {
     public static partial class Easing
     {
-        public static IAnimator Linear(TimeSpan duration)
+        public static IAnimator Linear(float duration)
         {
             return new EasingDurationAnimator(duration, new LinearEasing());
         }

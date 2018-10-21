@@ -5,17 +5,17 @@ namespace AnimeRx
 {
     public static partial class Easing
     {
-        public static IAnimator InBack(TimeSpan duration)
+        public static IAnimator InBack(float duration)
         {
             return new EasingDurationAnimator(duration, new InBackEasing());
         }
 
-        public static IAnimator OutBack(TimeSpan duration)
+        public static IAnimator OutBack(float duration)
         {
             return new EasingDurationAnimator(duration, new OutBackEasing());
         }
 
-        public static IAnimator InOutBack(TimeSpan duration)
+        public static IAnimator InOutBack(float duration)
         {
             return new EasingDurationAnimator(duration, new InOutBackEasing());
         }

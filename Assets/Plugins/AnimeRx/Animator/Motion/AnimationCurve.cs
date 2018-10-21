@@ -1,16 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnimeRx
 {
     public static partial class Motion
     {
-        public static IAnimator From(AnimationCurve curve, float velocity = 1.0f)
-        {
-            return new AnimationCurveVelocityAnimator(curve, velocity);
-        }
-
-        public static IAnimator From(AnimationCurve curve, TimeSpan duration)
+        public static IAnimator From(AnimationCurve curve, float duration)
         {
             return new AnimationCurveTimeAnimator(curve, duration);
         }
@@ -42,10 +36,10 @@ namespace AnimeRx
             private readonly AnimationCurve curve;
             private readonly float duration;
 
-            public AnimationCurveTimeAnimator(AnimationCurve curve, TimeSpan duration)
+            public AnimationCurveTimeAnimator(AnimationCurve curve, float duration)
             {
                 this.curve = curve;
-                this.duration = (float) duration.TotalSeconds;
+                this.duration = duration;
             }
 
             public float CalcFinishTime(float distance)

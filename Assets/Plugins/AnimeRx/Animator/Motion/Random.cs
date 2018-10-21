@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnimeRx
 {
     public static partial class Motion
     {
-        public static IAnimator Random(TimeSpan timeSpan, float min, float max)
+        public static IAnimator Random(float duration, float min, float max)
         {
-            return new RandomDurationAnimator(timeSpan, min, max);
+            return new RandomDurationAnimator(duration, min, max);
         }
 
         private class RandomDurationAnimator : IAnimator
@@ -16,9 +15,9 @@ namespace AnimeRx
             private readonly float min;
             private readonly float max;
 
-            public RandomDurationAnimator(TimeSpan duration, float min, float max)
+            public RandomDurationAnimator(float duration, float min, float max)
             {
-                this.duration = (float) duration.TotalSeconds;
+                this.duration = duration;
                 this.min = min;
                 this.max = max;
             }
