@@ -37,7 +37,7 @@ namespace AnimeRx
 
                 var microCoroutineObserver = new FromMicroCoroutine(observer, cancel);
 
-#if (NET_4_6)
+#if (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
                 var moreCancel = new CancellationDisposable();
                 var token = moreCancel.Token;
 #else
