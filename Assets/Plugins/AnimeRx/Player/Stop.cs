@@ -1,5 +1,5 @@
-﻿using UniRx;
-
+using System;
+using UniRx;
 namespace AnimeRx
 {
     public static partial class Anime
