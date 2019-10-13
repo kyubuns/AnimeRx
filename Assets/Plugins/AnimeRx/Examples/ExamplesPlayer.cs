@@ -7,9 +7,9 @@ namespace AnimeRx.Development
 {
     public class ExamplesPlayer : MonoBehaviour
     {
-        [SerializeField] private Dropdown dropdown;
-        [SerializeField] private Button playButton;
-        [SerializeField] private Examples examples;
+        [SerializeField] private Dropdown dropdown = null;
+        [SerializeField] private Button playButton = null;
+        [SerializeField] private Examples examples = null;
 
         public void Start()
         {
