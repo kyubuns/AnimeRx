@@ -142,7 +142,8 @@ namespace AnimeRx
 
         public static IObservable<float> Play(this IObservable<float> self, float to, IAnimator animator, IScheduler scheduler)
         {
-            return self.Select(x => Play(x, to, animator, scheduler)).Switch();
+            var hot = self.Publish().RefCount();
+            return Observable.Merge(hot, hot.ContinueWith(x => Play(x, to, animator, scheduler)));
         }
 
         public static IObservable<float> Play(this IObservable<float> self, float[] path, IAnimator animator)
