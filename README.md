@@ -244,7 +244,7 @@ Observable.WhenAll(leftCube1, rightCube1)
 
 ## Requirements
 
-- Unity 2017.1 or higher.
+- Unity 2017.1 or later.
 - Support .net3.5 and .net4.6
 
 ## Special thanks
