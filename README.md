@@ -2,14 +2,11 @@
 
 Created by kyubuns
 
-Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
-
 - ```IObservable<T> Anime.Play(T from, T to, IAnimator animator)```
 
-## Installation
+Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
 
-Requires Unity 2017.1 or later (5.6でも多分動くけど未確認)  
-Support .net3.5 and .net4.6
+## Installation
 
 - Import UniRx ([AssetStore](https://assetstore.unity.com/packages/tools/unirx-reactive-extensions-for-unity-17276) or [GitHub](https://github.com/neuecc/UniRx))
 - Import AnimeRx (https://github.com/kyubuns/AnimeRx/releases)
@@ -245,7 +242,17 @@ Observable.WhenAll(leftCube1, rightCube1)
     .Subscribe();
 ```
 
+## Requirements
+
+- Unity 2017.1 or higher.
+- Support .net3.5 and .net4.6
+
 ## Special thanks
 
 - Inspired by [fumobox/TweenRx](https://github.com/fumobox/TweenRx)
 - [yKimisaki](https://github.com/yKimisaki)
+
+## License
+
+MIT License (see [LICENSE](LICENSE))
+
