@@ -4,6 +4,7 @@ using UniRx;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace AnimeRx.Dev
 {
@@ -34,7 +35,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            Sample2();
+            Shuffle();
             yield return null;
         }
 
@@ -42,6 +43,36 @@ namespace AnimeRx.Dev
         {
             Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(4f))
                 .PlayRelative(new Vector3(0f, 3f, 0f), Motion.Uniform(4f))
+                .SubscribeToPosition(cube);
+        }
+
+        private class ShuffleAnimator : IAnimator
+        {
+            private readonly float duration;
+
+            public ShuffleAnimator(float duration)
+            {
+                this.duration = duration;
+            }
+
+            public float CalcFinishTime(float distance)
+            {
+                return duration;
+            }
+
+            public float CalcPosition(float time, float distance)
+            {
+                return Random.Range(0f, 1f);
+            }
+        }
+
+        private void Shuffle()
+        {
+            var shuffleX = Anime.Play(-1f, 1f, new ShuffleAnimator(3f));
+            var shuffleY = Anime.Play(-1f, 1f, new ShuffleAnimator(3f));
+
+            Observable.CombineLatest(shuffleX, shuffleY)
+                .Select(x => new Vector3(x[0], x[1]))
                 .SubscribeToPosition(cube);
         }
 

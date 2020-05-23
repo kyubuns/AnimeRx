@@ -242,9 +242,44 @@ Observable.WhenAll(leftCube1, rightCube1)
     .Subscribe();
 ```
 
+## Create your self!
+
+```csharp
+private class ShuffleAnimator : IAnimator
+{
+    private readonly float duration;
+
+    public ShuffleAnimator(float duration)
+    {
+        this.duration = duration;
+    }
+
+    public float CalcFinishTime(float distance)
+    {
+        return duration;
+    }
+
+    public float CalcPosition(float time, float distance)
+    {
+        return Random.Range(0f, 1f);
+    }
+}
+
+private void Shuffle()
+{
+    var shuffleX = Anime.Play(-1f, 1f, new ShuffleAnimator(3f));
+    var shuffleY = Anime.Play(-1f, 1f, new ShuffleAnimator(3f));
+
+    Observable.CombineLatest(shuffleX, shuffleY)
+        .Select(x => new Vector3(x[0], x[1]))
+        .SubscribeToPosition(cube);
+}
+```
+
 ## Requirements
 
 - Unity 2017.1 or later.
+    - checked by 2019
 - Support .net3.5 and .net4.6
 
 ## Special thanks
