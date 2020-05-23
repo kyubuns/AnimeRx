@@ -9,14 +9,14 @@ namespace AnimeRx.Dev
 {
     public class Development : MonoBehaviour
     {
-        [SerializeField] private GameObject cube;
-        [SerializeField] private GameObject cube2;
-        [SerializeField] private GameObject cube3;
-        [SerializeField] private GameObject sphere;
-        [SerializeField] private GameObject sphere2;
-        [SerializeField] private AnimationCurve curve;
-        [SerializeField] private Slider slider1;
-        [SerializeField] private Slider slider2;
+        [SerializeField] private GameObject cube = default;
+        [SerializeField] private GameObject cube2 = default;
+        [SerializeField] private GameObject cube3 = default;
+        [SerializeField] private GameObject sphere = default;
+        [SerializeField] private GameObject sphere2 = default;
+        [SerializeField] private AnimationCurve curve = default;
+        [SerializeField] private Slider slider1 = default;
+        [SerializeField] private Slider slider2 = default;
 
         public IEnumerator Start()
         {
@@ -34,7 +34,7 @@ namespace AnimeRx.Dev
             slider2.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            BugCheck();
+            Sample2();
             yield return null;
         }
 
