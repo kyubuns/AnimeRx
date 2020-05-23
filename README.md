@@ -47,7 +47,7 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), animator)
 EaseOutQuadで2秒かけて移動。
 
 ```csharp
-Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(TimeSpan.FromSeconds(2f)))
+Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(2f))
     .SubscribeToPosition(cube);
 ```
 
@@ -58,9 +58,9 @@ Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Easing.OutQuad(Tim
 移動した後、1秒まって再度動き出す。
 
 ```csharp
-Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
-    .Sleep(TimeSpan.FromSeconds(1f))
-    .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(2f)))
+Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(0f, 0f, 0f), Easing.OutExpo(2f))
+    .Sleep(1f)
+    .Play(new Vector3(5f, 0f, 0f), Easing.OutExpo(2f))
     .SubscribeToPosition(cube);
 ```
 
@@ -80,7 +80,7 @@ var positions = new[]
     new Vector3(-5f, 0f, 0f),
 };
 
-Anime.Play(positions, Easing.InOutSine(TimeSpan.FromSeconds(6f)))
+Anime.Play(positions, Easing.InOutSine(6f))
     .SubscribeToPosition(cube);
 ```
 
@@ -91,10 +91,10 @@ Anime.Play(positions, Easing.InOutSine(TimeSpan.FromSeconds(6f)))
 x, y, zの各座標を別々にアニメーションさせて合成。
 
 ```csharp
-var x = Anime.Play(-5f, 5f, Easing.InOutSine(TimeSpan.FromSeconds(3f)));
+var x = Anime.Play(-5f, 5f, Easing.InOutSine(3f));
 
-var y = Anime.Play(0f, 3f, Easing.InOutSine(TimeSpan.FromSeconds(1.5f)))
-    .Play(0f, Easing.InOutSine(TimeSpan.FromSeconds(1.5f)));
+var y = Anime.Play(0f, 3f, Easing.InOutSine(1.5f))
+    .Play(0f, Easing.InOutSine(1.5f));
 
 var z = Anime.Stay(0f);
 
@@ -109,7 +109,7 @@ Observable.CombineLatest(x, y, z)
 UnityEngine.AnimationCurveを利用して移動。
 
 ```csharp
-Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, TimeSpan.FromSeconds(3f)))
+Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.From(curve, 3f))
     .SubscribeToPosition(cube);
 ```
 
@@ -121,7 +121,7 @@ cube.transform.positionから(3,3,0)へ移動。
 
 ```csharp
 cube.transform.position
-    .Play(new Vector3(3f, 3f, 0f), Easing.OutBack(TimeSpan.FromSeconds(2f)))
+    .Play(new Vector3(3f, 3f, 0f), Easing.OutBack(2f))
     .SubscribeToPosition(cube);
 ```
 
@@ -132,7 +132,7 @@ cube.transform.position
 IObservble<float>を円運動に変換。
 
 ```csharp
-Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
+Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(3f))
     .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
     .Select(x => x * 3f)
     .SubscribeToPosition(cube);
@@ -146,9 +146,9 @@ Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
 特定の範囲だけついていく。
 
 ```csharp
-var flow = Anime.Play(Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)))
-    .Stop(TimeSpan.FromSeconds(0.5f))
-    .Play(1.0f, 0.0f, Easing.InOutExpo(TimeSpan.FromSeconds(2.5f)));
+var flow = Anime.Play(Easing.InOutExpo(2.5f))
+    .Stop(0.5f)
+    .Play(1.0f, 0.0f, Easing.InOutExpo(2.5f));
 
 flow
     .Range(0.0f, 0.5f)
@@ -167,7 +167,7 @@ flow
 Animationから等速運動に繋げる。
 
 ```csharp
-Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
+Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(1.0f))
     .SubscribeToPositionX(cube);
 ```
 
@@ -178,7 +178,7 @@ Anime.PlayIn(-5f, 0f, 5f, Easing.InCubic(TimeSpan.FromSeconds(1.0)))
 Observable.Delay in UniRx
 
 ```csharp
-var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(TimeSpan.FromSeconds(3f)))
+var circle = Anime.Play(0f, Mathf.PI * 2f, Easing.OutCubic(3f))
     .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0.0f))
     .Select(x => x * 3f);
 
@@ -186,11 +186,11 @@ circle
     .SubscribeToPosition(cube);
 
 circle
-    .Delay(TimeSpan.FromSeconds(0.3f))
+    .Delay(0.3f)
     .SubscribeToPosition(cube2);
 
 circle
-    .Delay(TimeSpan.FromSeconds(0.55f))
+    .Delay(0.55f)
     .SubscribeToPosition(cube3);
 ```
 
@@ -202,11 +202,11 @@ circle
 
 ```csharp
 var circle = Anime
-    .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.InOutSine(TimeSpan.FromSeconds(3f)))
+    .Play(Mathf.PI, Mathf.PI * 2f * 3f, Easing.InOutSine(3f))
     .Select(x => new Vector3(Mathf.Sin(x), Mathf.Cos(x), 0f));
 
 var straight = Anime
-    .Play(-3f, 3f, Easing.InOutSine(TimeSpan.FromSeconds(3f)))
+    .Play(-3f, 3f, Easing.InOutSine(3f))
     .Select(x => new Vector3(0f, x, 0f));
 
 Observable.CombineLatest(circle, straight)
@@ -222,19 +222,19 @@ WhenAllを使ってアニメーションのタイミングを合わせる。
 
 ```csharp
 var leftCube1 = Anime
-    .Play(new Vector3(-5f, 0f, 0f), new Vector3(-0.5f, 0f, 0f), Easing.Linear(TimeSpan.FromSeconds(2.5f)))
+    .Play(new Vector3(-5f, 0f, 0f), new Vector3(-0.5f, 0f, 0f), Easing.Linear(2.5f))
     .DoToPosition(cube);
 
 var rightCube1 = Anime
-    .Play(new Vector3(5f, 0f, 0f), new Vector3(0.5f, 0f, 0f), Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+    .Play(new Vector3(5f, 0f, 0f), new Vector3(0.5f, 0f, 0f), Easing.OutCubic(1f))
     .DoToPosition(cube2);
 
 var leftCube2 = Anime
-    .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f), Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+    .Play(new Vector3(-0.5f, 0f, 0f), new Vector3(-0.5f, 3f, 0f), Easing.OutCubic(1f))
     .DoToPosition(cube);
 
 var rightCube2 = Anime
-    .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f), Easing.OutCubic(TimeSpan.FromSeconds(1f)))
+    .Play(new Vector3(0.5f, 0f, 0f), new Vector3(0.5f, 3f, 0f), Easing.OutCubic(1f))
     .DoToPosition(cube2);
 
 Observable.WhenAll(leftCube1, rightCube1)
