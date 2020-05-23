@@ -244,6 +244,8 @@ Observable.WhenAll(leftCube1, rightCube1)
 
 ## Create your self!
 
+自由に拡張できるインターフェイスが準備されています。
+
 ```csharp
 private class ShuffleAnimator : IAnimator
 {
