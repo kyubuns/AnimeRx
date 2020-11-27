@@ -242,6 +242,20 @@ Observable.WhenAll(leftCube1, rightCube1)
     .Subscribe();
 ```
 
+## Loop, Repeat
+
+```csharp
+var disposable = Anime.Play(new Vector3(-5f, 0f, 0f), new Vector3(5f, 0f, 0f), Motion.Uniform(5f))
+    .Repeat() // infinite loop
+    .SubscribeToPosition(cube1);
+
+Observable.Timer(TimeSpan.FromSeconds(5)).Subscribe(_ =>
+{
+    Debug.Log("Stop!");
+    disposable.Dispose();
+});
+```
+
 ## Create your self!
 
 自由に拡張できるインターフェイスが準備されています。
