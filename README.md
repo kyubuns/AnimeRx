@@ -294,7 +294,7 @@ private void Shuffle()
 
 ## Selecting Card
 
-```cshsarp
+```csharp
 var selectingCard = new ReactiveProperty<Image>(null);
 foreach (var (card, text) in cards.Zip(debugText, Tuple.Create))
 {
