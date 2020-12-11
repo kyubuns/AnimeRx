@@ -1,0 +1,16 @@
+{
+  "name": "dev.kyubuns.animerx",
+  "displayName": "AnimeRx",
+  "version": "1.3.2",
+  "unity": "2019.4",
+  "description": "Rx Tween Animation Library",
+  "documentationUrl": "https://github.com/kyubuns/AnimeRx",
+  "dependencies": {
+  },
+  "author": {
+    "name": "kyubuns",
+    "email": "kyubuns@gmail.com",
+    "url": "https://kyubuns.dev/"
+  },
+  "type": "library"
+}
