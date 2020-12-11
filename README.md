@@ -296,7 +296,7 @@ private void Shuffle()
 
 ```csharp
 var selectingCard = new ReactiveProperty<Image>(null);
-foreach (var (card, text) in cards.Zip(debugText, Tuple.Create))
+foreach (var card in cards)
 {
     var cardRectTransform = card.GetComponent<RectTransform>();
     card.OnPointerClickAsObservable().Subscribe(x => selectingCard.Value = card).AddTo(card);
