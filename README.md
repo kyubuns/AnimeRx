@@ -292,6 +292,46 @@ private void Shuffle()
 }
 ```
 
+## Selecting Card
+
+```cshsarp
+var selectingCard = new ReactiveProperty<Image>(null);
+foreach (var (card, text) in cards.Zip(debugText, Tuple.Create))
+{
+    var cardRectTransform = card.GetComponent<RectTransform>();
+    card.OnPointerClickAsObservable().Subscribe(x => selectingCard.Value = card).AddTo(card);
+
+    var gauge = new ReactiveProperty<float>(0f);
+    selectingCard
+        .Select(x =>
+        {
+            var isSelecting = x == card;
+            var target = isSelecting ? 1.0f : 0.0f;
+            var speed = isSelecting ? 1.0f : 2.0f; // 戻る時は2倍速
+            card.color = isSelecting ? Color.yellow : Color.white;
+            return Anime.Play(gauge.Value, target, Motion.Uniform(speed));
+        })
+        .Switch()
+        .Subscribe(x => gauge.Value = x);
+
+    gauge
+        .Subscribe(x =>
+        {
+            text.text = $"{x:0.0}";
+        })
+        .AddTo(card);
+
+    gauge
+        .Subscribe(x =>
+        {
+            var p = cardRectTransform.localPosition;
+            p.y = OutCirc.Calc(x) * SelectingY;
+            cardRectTransform.localPosition = p;
+        })
+        .AddTo(card);
+}
+```
+
 ## Requirements
 
 - Unity 2017.1 or later.
