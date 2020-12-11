@@ -317,13 +317,6 @@ foreach (var (card, text) in cards.Zip(debugText, Tuple.Create))
     gauge
         .Subscribe(x =>
         {
-            text.text = $"{x:0.0}";
-        })
-        .AddTo(card);
-
-    gauge
-        .Subscribe(x =>
-        {
             var p = cardRectTransform.localPosition;
             p.y = OutCirc.Calc(x) * SelectingY;
             cardRectTransform.localPosition = p;
