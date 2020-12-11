@@ -6,10 +6,14 @@
 
 Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
 
-## Installation
+## Instructions
 
-- Import UniRx ([AssetStore](https://assetstore.unity.com/packages/tools/unirx-reactive-extensions-for-unity-17276) or [GitHub](https://github.com/neuecc/UniRx))
-- Import AnimeRx (https://github.com/kyubuns/AnimeRx/releases)
+- Import [UniTask](https://github.com/Cysharp/UniTask)
+- Import AnimeTask
+    - Package Manager `https://github.com/kyubuns/AnimeRx.git?path=Assets/Plugins/AnimeRx`
+        - UniTask must also be installed by PackageManager
+    - [UnityPackage](https://github.com/kyubuns/AnimeRx/releases)
+        - AnimeTask.asmdef must have a reference to UniTask.
 
 ## Examples
 
