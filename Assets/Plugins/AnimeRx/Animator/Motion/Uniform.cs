@@ -25,6 +25,7 @@ namespace AnimeRx
 
             public float CalcPosition(float time, float distance)
             {
+                if (Mathf.Approximately(distance, 0.0f)) return 1f;
                 return Mathf.Clamp01(time / CalcFinishTime(distance));
             }
         }
