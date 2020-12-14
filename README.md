@@ -9,7 +9,7 @@ Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
 ## Instructions
 
 - Import [UniTask](https://github.com/Cysharp/UniTask)
-- Import AnimeTask
+- Import AnimeRx
     - Package Manager `https://github.com/kyubuns/AnimeRx.git?path=Assets/Plugins/AnimeRx`
     - [UnityPackage](https://github.com/kyubuns/AnimeRx/releases)
 
