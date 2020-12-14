@@ -11,9 +11,7 @@ Task Version! -> [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
 - Import [UniTask](https://github.com/Cysharp/UniTask)
 - Import AnimeTask
     - Package Manager `https://github.com/kyubuns/AnimeRx.git?path=Assets/Plugins/AnimeRx`
-        - UniTask must also be installed by PackageManager
     - [UnityPackage](https://github.com/kyubuns/AnimeRx/releases)
-        - AnimeTask.asmdef must have a reference to UniTask.
 
 ## Examples
 
