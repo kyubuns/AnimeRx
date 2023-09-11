@@ -2,13 +2,15 @@
 
 - ```IObservable<T> Anime.Play(T from, T to, IAnimator animator)```
 
+-----
+
 ## Recommend
 
 This is a library from the days when Task was not yet available in Unity.  
 I recommend using the Task version.  
 [kyubuns/AnimeTask](https://github.com/kyubuns/AnimeTask)
 
-<a href="https://www.buymeacoffee.com/kyubuns" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+-----
 
 ## Instructions
 
